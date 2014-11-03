@@ -45,3 +45,50 @@ CREATE TABLE `game` (
   PRIMARY KEY (`id`)
 ) CHARSET=utf8;
 
+
+
+CREATE TABLE `game_feature` (
+  `id` integer NOT NULL AUTO_INCREMENT,
+  `g_id` integer,
+  `game_id` varchar(128) NOT NULL DEFAULT '',
+  `language` varchar(20) DEFAULT NULL,
+  `site` varchar(10) DEFAULT NULL,
+  `gametype` varchar(10) DEFAULT NULL, 
+  
+  `hasdwfeature` varchar(10) DEFAULT NULL, 
+  `dwwidth` varchar(10) DEFAULT NULL, 
+  `dwheight` varchar(10) DEFAULT NULL, 
+  `gamerank` varchar(10) DEFAULT NULL, 
+  `releasedate` timestamp, 
+  
+  PRIMARY KEY (`id`)
+) CHARSET=utf8;
+
+
+CREATE TABLE `game_daily` (
+  `id` integer NOT NULL AUTO_INCREMENT,
+  `g_id` integer,
+  `game_id` varchar(128) NOT NULL DEFAULT '',
+  `language` varchar(20) DEFAULT NULL,
+  `site` varchar(10) DEFAULT NULL,
+  `gametype` varchar(10) DEFAULT NULL,  
+  PRIMARY KEY (`id`)
+) CHARSET=utf8;
+
+
+CREATE TABLE `game_catch` (
+  `id` integer NOT NULL AUTO_INCREMENT,
+  `g_id` integer,
+  `game_id` varchar(128) NOT NULL DEFAULT '',
+  `language` varchar(20) DEFAULT NULL,
+  `site` varchar(10) DEFAULT NULL,
+  `gametype` varchar(10) DEFAULT NULL,
+  
+  `logo_url` varchar(100) DEFAULT NULL,
+  `images_med` varchar(100) DEFAULT NULL,
+  `tagline` varchar(100) DEFAULT NULL,
+  `offer_start_date` timestamp, 
+  `offer_end_date` timestamp, 
+  
+  PRIMARY KEY (`id`)
+) CHARSET=utf8;
