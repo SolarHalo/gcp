@@ -14,7 +14,7 @@ class LoggerFactory:
     except Exception , e:
         logging.config.fileConfig("D:/working/workspace/pythonspace/gcp/src/conf/logging.conf")
     
-    logger = logging.getLogger("example01")
+    logger = logging.getLogger("example")
     
     @staticmethod
     def getLogger():

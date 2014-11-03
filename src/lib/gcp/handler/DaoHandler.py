@@ -51,6 +51,7 @@ class DaoHandler(object):
         buf = []
         for obj in self.data:
             try:
+                
                 rows = self.dbutil.selectRowsPrepared(DaoHandler.repeatSql, (obj.gameId,self.source))
                 if len(rows) > 0:
                     continue
@@ -66,6 +67,7 @@ class DaoHandler(object):
                     obj.imgThumb2,obj.imgThumb3,obj.imgScreen1,obj.imgScreen2,obj.imgScreen3,
                     obj.video,obj.flash,obj.downloadurl,obj.buyurl,obj.downloadiframe,obj.buyiframe,obj.foldername
                  ))
+                
             except Exception , e:
                 DaoHandler.logger.error("Prepare insert db data error , length %d , %s !"%(len(self.data),self.source))
                 DaoHandler.logger.error(e)
