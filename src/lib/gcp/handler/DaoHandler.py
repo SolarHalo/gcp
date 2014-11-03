@@ -79,12 +79,14 @@ class DaoHandler(object):
             for single in buf:
                 try:
                     self.dbutil.insertPrepared(DaoHandler.insertSql,single)
-                except Exception , e:
+                except Exception , exp:
                     singleTxt = ""
                     for sin in single:
-                        singleTxt += sin
-                    DaoHandler.logger.error("Insert single error ! "+singleTxt)
-                    DaoHandler.logger.error(e)
+                        if sin is None:
+                            sin = ""
+                        singleTxt = singleTxt+"'%s'|"% sin
+                    DaoHandler.logger.error("Insert single error ! %s"+singleTxt)
+                    DaoHandler.logger.error(exp)
         finally:
             DaoHandler.logger.info("End insert db length %d , %s  %s end !"%(len(self.data),self.source,self.filename))
             self.dbutil.close()

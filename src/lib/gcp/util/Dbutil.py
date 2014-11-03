@@ -45,7 +45,7 @@ class Dbutil:
             for arg in args:  
                 self.cursor.execute(sql,arg)
         else:
-            self.cursor.execute(sql,arg)
+            self.cursor.execute(sql,args)
         self.conn.commit() 
         
     def update(self, sql):
