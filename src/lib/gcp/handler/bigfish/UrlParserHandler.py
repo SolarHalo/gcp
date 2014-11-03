@@ -30,10 +30,10 @@ class UrlParserHandler:
                 urlTemples.append([urlTemple,table])
                 
         for urlTemple in urlTemples:        
-            urlTemple = Config.configs['game.bigfish']['url']
             cf = Config.configs['game.bigfish']
             urls = StaticUtil.convertUrl(urlTemple, cf)
             
+            self.logger.info("Parser xml convert count[%d]!" % len(urls));
             for conf in urls:
                 filepath = Config.configs['game.bigfish']['data_path'] +StaticUtil.getPara(conf)+ StaticUtil.getTimeStrForFold() + "bigfish.xml"
                 download = DownloadHandler(conf, filepath, GcpConstant.Source.Bigfish)

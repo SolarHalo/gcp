@@ -32,6 +32,7 @@ class UrlParserHandler:
         for urlTemple in urlTemples:
             cf = Config.configs['game.alawar']
             urls = StaticUtil.convertUrl(urlTemple, cf)
+            self.logger.info("Parser xml convert count[%d]!" % len(urls));
             for conf in urls:
                 filepath = Config.configs['game.alawar']['data_path'] +StaticUtil.getPara(conf)+ StaticUtil.getTimeStrForFold() + "alawar.xml"
                 download = DownloadHandler(conf, filepath, GcpConstant.Source.Alawar)
