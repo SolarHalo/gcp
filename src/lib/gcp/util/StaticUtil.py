@@ -11,7 +11,7 @@ class StaticUtil:
     def getPara(conf):
         result = ''
         for key in conf.keys():
-            if key != 'url':
+            if not key.startswith('url'):
                 if type(conf[key]) is int: 
                     result += "%d"%conf[key]
                 else:
@@ -21,7 +21,7 @@ class StaticUtil:
     @staticmethod
     def convertUrl(urlTemple,cf):
         datas = []
-        datas.append({'url':urlTemple})
+        datas.append({'url':urlTemple[0],'table':urlTemple[1]})
         varmap = {}
         prefix = "${"
         end = "}"
@@ -30,6 +30,9 @@ class StaticUtil:
                 varmap[key] = cf[key]
                 
         for key in varmap.keys():
+            if len(datas) > 0 and datas[0]['url'].find(key) < 0:
+                continue
+            
             tem = []
             for data in datas:
                 tem.append(data);
@@ -43,10 +46,13 @@ class StaticUtil:
                         url[u] = urlT[u]
                     if type(var) is int:
                         var = "%d"%var
-                    url['url'] = url['url'].replace(key,var)
-                    k = key[2:-1]
-                    url[k] = var 
-                    datas.append(url)
+                    tt = url['url']
+                    tt = tt.replace(key,var)
+                    if tt != url['url']:
+                        url['url'] = tt
+                        k = key[2:-1]
+                        url[k] = var 
+                        datas.append(url)
         return datas
     
     @staticmethod 

@@ -21,13 +21,20 @@ class UrlParserHandler:
     def execute(self):
         self.logger.info("Ready to parser url !")
         
-        urlTemple = Config.configs['game.alawar']['url']
-        cf = Config.configs['game.alawar']
-        urls = StaticUtil.convertUrl(urlTemple, cf)
+        urlTemples = []
         
-        for conf in urls:
-            filepath = Config.configs['game.alawar']['data_path'] +StaticUtil.getPara(conf)+ StaticUtil.getTimeStrForFold() + "alawar.xml"
-            download = DownloadHandler(conf, filepath, GcpConstant.Source.Alawar)
-            TaskRun.getInstance().submit(download)
+        for key in Config.configs['game.alawar'].keys():
+            if key.startswith('url'):
+                table = key.replace('url.','')
+                urlTemple = Config.configs['game.alawar'][key]
+                urlTemples.append([urlTemple,table])
         
-            self.logger.info("Parser xml[%s] name , url[%s] end !"%(filepath,conf));
+        for urlTemple in urlTemples:
+            cf = Config.configs['game.alawar']
+            urls = StaticUtil.convertUrl(urlTemple, cf)
+            for conf in urls:
+                filepath = Config.configs['game.alawar']['data_path'] +StaticUtil.getPara(conf)+ StaticUtil.getTimeStrForFold() + "alawar.xml"
+                download = DownloadHandler(conf, filepath, GcpConstant.Source.Alawar)
+                TaskRun.getInstance().submit(download)
+                
+                self.logger.info("Parser xml[%s] name , url[%s] end !"%(filepath,conf));

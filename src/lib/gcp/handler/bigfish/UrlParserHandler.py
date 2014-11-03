@@ -21,13 +21,22 @@ class UrlParserHandler:
         
         self.logger.info("Ready to parser url !")
 
-        urlTemple = Config.configs['game.bigfish']['url']
-        cf = Config.configs['game.bigfish']
-        urls = StaticUtil.convertUrl(urlTemple, cf)
+        urlTemples = []
         
-        for conf in urls:
-            filepath = Config.configs['game.bigfish']['data_path'] +StaticUtil.getPara(conf)+ StaticUtil.getTimeStrForFold() + "bigfish.xml"
-            download = DownloadHandler(conf, filepath, GcpConstant.Source.Bigfish)
-            TaskRun.getInstance().submit(download)
+        for key in Config.configs['game.bigfish'].keys():
+            if key.startswith('url'):
+                table = key.replace('url.','')
+                urlTemple = Config.configs['game.bigfish'][key]
+                urlTemples.append([urlTemple,table])
+                
+        for urlTemple in urlTemples:        
+            urlTemple = Config.configs['game.bigfish']['url']
+            cf = Config.configs['game.bigfish']
+            urls = StaticUtil.convertUrl(urlTemple, cf)
             
-            self.logger.info("Parser xml[%s] name , url[%s] end !" % (filepath, conf));
+            for conf in urls:
+                filepath = Config.configs['game.bigfish']['data_path'] +StaticUtil.getPara(conf)+ StaticUtil.getTimeStrForFold() + "bigfish.xml"
+                download = DownloadHandler(conf, filepath, GcpConstant.Source.Bigfish)
+                TaskRun.getInstance().submit(download)
+                
+                self.logger.info("Parser xml[%s] name , url[%s] end !" % (filepath, conf));
