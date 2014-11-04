@@ -54,14 +54,15 @@ class CatchDecode(ContentHandler):
             self.entity.gametype = self.conf['gametype']
             self.counter = self.counter + 1
             
-    def endElement(self, name):  
+    def endElement(self, name):
+        if self.entity is None:
+            return 
         if name == 'gameid':
             self.entity.gameId = self.buf
         elif name == 'med':
             self.entity.imagesMed = self.buf
         elif name == 'logo_url':
             self.entity.logoUrl = self.buf
-            CatchDecode.logger.info("=========%s"%self.entity.logoUrl);
         elif name == 'tagline':
             self.entity.tagline = self.buf
         elif name == 'link':
@@ -89,6 +90,7 @@ class CatchDecode(ContentHandler):
                 dao = DaoHandler(self.filename,self.conf,self.baseBuffer,self.source)
                 TaskRun.getInstance().submit(dao)
                 self.baseBuffer = []
+            self.entity = None
         
     def characters(self, content):  
         self.buf += content

@@ -60,7 +60,9 @@ class BigfishDecode(ContentHandler):
             self.entity.genreName = attrs['name']
             
             
-    def endElement(self, name):  
+    def endElement(self, name):
+        if self.entity is None:
+            return   
         if name == 'gameid':
             self.entity.gameId = self.buffer
         elif name == 'gamename':
@@ -118,6 +120,7 @@ class BigfishDecode(ContentHandler):
                 dao = DaoHandler(self.filename,self.conf,self.baseBuffer,self.source)
                 TaskRun.getInstance().submit(dao)
                 self.baseBuffer = []
+            self.entity = None
                 
     def characters(self, content):  
         self.buffer += content
