@@ -9,10 +9,10 @@ import logging.config
 class LoggerFactory:
     logger = None
     try:
-        logging.config.fileConfig("conf/logging.conf")
+        logging.config.fileConfig("conf/logger.conf")
         
     except Exception , e:
-        logging.config.fileConfig("D:/working/workspace/pythonspace/gcp/src/conf/logging.conf")
+        logging.config.fileConfig("D:/working/workspace/pythonspace/gcp/src/conf/logger.conf")
     
     logger = logging.getLogger("example")
     

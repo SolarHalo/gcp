@@ -19,6 +19,8 @@ class GcpGameCatch:
     tagline = None
     offerStartDate = None 
     offerEndDate = None 
+    link = None
+    price = None
 
 
     

@@ -35,6 +35,12 @@ class DaoHandler(object):
     selectFeatureSql = 'SELECT f.id AS fid ,g.id AS gid FROM game g LEFT JOIN game_feature f ON g.id = f.g_id WHERE g.game_id = %s AND g.site = %s'
     
     
+    insertCatchSql = 'insert into game_catch(g_id,game_id,language,site,gametype,logo_url,images_med,tagline,offer_start_date,offer_end_date,link,price) \
+        values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    
+    selectCatchSql = 'SELECT c.id AS cid ,g.id AS gid FROM game g LEFT JOIN game_catch c ON g.id = c.g_id WHERE g.game_id = %s AND g.site = %s'
+    
+    
 
     def __init__(self,filename,cfg,data,source):
         self.data = data
@@ -48,19 +54,17 @@ class DaoHandler(object):
         buf = []
         
         insert = None;
-        
+        lan = None
+        gametype = None
+        if self.source == GcpConstant.Source.Bigfish:
+            lan = self.cfg['locale']
+            gametype = self.cfg['gametype']
+        else:
+            lan = self.cfg['locale']
+            gametype = 'pc'
+                
         if self.cfg['table'] == 'game':
             insert = DaoHandler.insertGameSql
-            
-            lan = None
-            gametype = None
-            if self.source == GcpConstant.Source.Bigfish:
-                lan = self.cfg['locale']
-                gametype = self.cfg['gametype']
-            else:
-                lan = self.cfg['locale']
-                gametype = 'pc'
-            
             for obj in self.data:
                 try:
                     rows = self.dbutil.selectRowsPrepared(DaoHandler.selectGameSql, (obj.gameId,self.source))
@@ -84,20 +88,10 @@ class DaoHandler(object):
                     DaoHandler.logger.exception(e)
         elif self.cfg['table'] == 'game_feature':
             insert = DaoHandler.insertFeatureSql
-            
-            lan = None
-            gametype = None
-            if self.source == GcpConstant.Source.Bigfish:
-                lan = self.cfg['locale']
-                gametype = self.cfg['gametype']
-            else:
-                lan = self.cfg['locale']
-                gametype = 'pc'
-            
             for obj in self.data:
                 try:
                     rows = self.dbutil.selectRowsPrepared(DaoHandler.selectFeatureSql,(obj.gameId,self.source))
-                    if len(rows) < 0:
+                    if len(rows) <= 0:
                         continue
                     else: 
                         obj.gId = rows[0][1]
@@ -112,6 +106,28 @@ class DaoHandler(object):
                 except Exception , e:
                     DaoHandler.logger.error("Prepare insert db data error , length %d , %s !"%(len(self.data),self.source))
                     DaoHandler.logger.exception(e)     
+        elif self.cfg['table'] == 'game_catch':
+            insert = DaoHandler.insertCatchSql
+            for obj in self.data:
+                try:
+                    rows = self.dbutil.selectRowsPrepared(DaoHandler.selectCatchSql,(obj.gameId,self.source))
+                    if len(rows) <= 0:
+                        continue
+                    else: 
+                        obj.gId = rows[0][1]
+                        obj.id = rows[0][0]
+                    if obj.id is not None:
+                        continue
+                    
+                    obj.site = self.source
+                    obj.language = lan
+                    obj.gametype = gametype
+                    buf.append((obj.gId,obj.gameId,obj.language,obj.site,obj.gametype,
+                                obj.logoUrl,obj.imagesMed,obj.tagline,obj.offerStartDate,obj.offerEndDate,obj.link,obj.price))
+                except Exception , e:
+                    DaoHandler.logger.error("Prepare insert db data error , length %d , %s !"%(len(self.data),self.source))
+                    DaoHandler.logger.exception(e)  
+                    
         #==========================================
         
         try:

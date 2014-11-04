@@ -66,7 +66,11 @@ class FeatureDecode(ContentHandler):
         elif name == 'gamerank':
             self.entity.gamerank = self.buf
         elif name == 'releasedate' and self.buf is not None and self.buf != '':
-            self.entity.releasedate = time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(self.buf,'%Y-%m-%d %H:%M:%S'))
+            try:
+                self.entity.releasedate = time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(self.buf,'%Y-%m-%d %H:%M:%S'))
+            except Exception , e:
+                self.logger.error("releasedate error %s , %s!"%(self.buf,self.source))
+                self.logger.error(e);
         elif 'game' == name:
             self.baseBuffer.append(self.entity)
             if len(self.baseBuffer) >= FeatureDecode.batchSize:

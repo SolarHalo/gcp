@@ -52,11 +52,14 @@ class FeatureParserHandler:
             
             parser.setContentHandler(handler)  
             data = ""  
-            with open(self.filename) as file:  
-                data = file.read().strip()  
+            with open(self.filename) as filexml:  
+                data = filexml.read().strip()  
             parser.parse(StringIO.StringIO(data))  
         except Exception , e:
             self.logger.error("Parse Xml[%s] %s error !"%(self.filename,self.source))
             self.logger.exception(e)
+            #failed redownload
+             
+            
             
         self.logger.info("Parse xml[%s] end !" % self.filename);

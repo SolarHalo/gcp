@@ -96,8 +96,11 @@ class BigfishDecode(ContentHandler):
         elif name == 'hasflash':
             self.entity.flash = self.buffer
         elif name == 'releasedate' and self.buffer is not None and self.buffer != '':
-            self.entity.releasedate = time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(self.buffer,'%Y-%m-%d %H:%M:%S'))
-       
+            try:
+                self.entity.releasedate = time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(self.buffer,'%Y-%m-%d %H:%M:%S'))
+            except Exception , e:
+                self.logger.error("releasedate error %s , %s!"%(self.buf,self.source))
+                self.logger.error(e);
         elif name == 'sysreqos':
             self.entity.systemreq = 'OS: ' + self.buffer 
         elif name == 'sysreqmhz':

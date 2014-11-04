@@ -89,6 +89,8 @@ CREATE TABLE `game_catch` (
   `tagline` varchar(100) DEFAULT NULL,
   `offer_start_date` timestamp, 
   `offer_end_date` timestamp, 
+  `link` varchar(100) DEFAULT NULL,
+  `price` varchar(50) DEFAULT NULL,
   
   PRIMARY KEY (`id`)
 ) CHARSET=utf8;
