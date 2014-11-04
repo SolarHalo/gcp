@@ -12,7 +12,7 @@ class LoggerFactory:
         logging.config.fileConfig("conf/logging.conf")
         
     except Exception , e:
-        logging.config.fileConfig("D:/work/workspace/pythonspace/gcp/src/conf/logging.conf")
+        logging.config.fileConfig("D:/working/workspace/pythonspace/gcp/src/conf/logging.conf")
     
     logger = logging.getLogger("example")
     
