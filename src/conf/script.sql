@@ -65,17 +65,26 @@ CREATE TABLE `game_feature` (
 ) CHARSET=utf8;
 
 
+DROP TABLE  `game_daily` ;
 CREATE TABLE `game_daily` (
   `id` integer NOT NULL AUTO_INCREMENT,
   `g_id` integer,
   `game_id` varchar(128) NOT NULL DEFAULT '',
   `language` varchar(20) DEFAULT NULL,
   `site` varchar(10) DEFAULT NULL,
-  `gametype` varchar(10) DEFAULT NULL,  
+  `gametype` varchar(10) DEFAULT NULL,
+  `content` varchar(10) DEFAULT NULL,
+  
+  `title` varchar(100) DEFAULT NULL,
+  `link` varchar(200) DEFAULT NULL,
+  `category` varchar(100) DEFAULT NULL,
+  `description` text,
+  `pub_date` timestamp, 
+  
   PRIMARY KEY (`id`)
 ) CHARSET=utf8;
 
-
+DROP TABLE  `game_catch` ;
 CREATE TABLE `game_catch` (
   `id` integer NOT NULL AUTO_INCREMENT,
   `g_id` integer,
@@ -84,12 +93,12 @@ CREATE TABLE `game_catch` (
   `site` varchar(10) DEFAULT NULL,
   `gametype` varchar(10) DEFAULT NULL,
   
-  `logo_url` varchar(100) DEFAULT NULL,
-  `images_med` varchar(100) DEFAULT NULL,
+  `logo_url` varchar(200) DEFAULT NULL,
+  `images_med` varchar(300) DEFAULT NULL,
   `tagline` varchar(100) DEFAULT NULL,
   `offer_start_date` timestamp, 
   `offer_end_date` timestamp, 
-  `link` varchar(100) DEFAULT NULL,
+  `link` varchar(500) DEFAULT NULL,
   `price` varchar(50) DEFAULT NULL,
   
   PRIMARY KEY (`id`)

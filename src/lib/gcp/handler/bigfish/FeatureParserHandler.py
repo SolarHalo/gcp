@@ -39,9 +39,9 @@ class FeatureParserHandler:
             elif self.conf['table'] == 'game':
                 handler = BigfishDecode(self.conf,self.filename,self.source)
             elif self.conf['table'] == 'game_daily':
-                #handler = DailyDecode(self.conf,self.filename,self.source)
-                self.logger.info("Parse Xml[%s] %s decode not implement !" % (self.filename,self.source))
-                return 
+                handler = DailyDecode(self.conf,self.filename,self.source)
+                #self.logger.info("Parse Xml[%s] %s decode not implement !" % (self.filename,self.source))
+                #return 
             elif self.conf['table'] == 'game_feature':
                 handler = FeatureDecode(self.conf,self.filename,self.source)
     

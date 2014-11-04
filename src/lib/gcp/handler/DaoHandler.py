@@ -40,6 +40,11 @@ class DaoHandler(object):
     
     selectCatchSql = 'SELECT c.id AS cid ,g.id AS gid FROM game g LEFT JOIN game_catch c ON g.id = c.g_id WHERE g.game_id = %s AND g.site = %s'
     
+    insertDailySql = 'insert into game_daily(g_id,game_id,language,site,gametype,content,title,link,category,description,pub_date) \
+        values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    
+    selectDailySql = 'SELECT d.id AS did ,g.id AS gid FROM game g LEFT JOIN game_daily d ON g.id = d.g_id WHERE g.game_id = %s AND g.site = %s'
+    
     
 
     def __init__(self,filename,cfg,data,source):
@@ -126,8 +131,29 @@ class DaoHandler(object):
                                 obj.logoUrl,obj.imagesMed,obj.tagline,obj.offerStartDate,obj.offerEndDate,obj.link,obj.price))
                 except Exception , e:
                     DaoHandler.logger.error("Prepare insert db data error , length %d , %s !"%(len(self.data),self.source))
-                    DaoHandler.logger.exception(e)  
+                    DaoHandler.logger.exception(e)
+        elif self.cfg['table'] == 'game_daily':
+            insert = DaoHandler.insertDailySql
+            for obj in self.data:
+                try:
+                    rows = self.dbutil.selectRowsPrepared(DaoHandler.selectDailySql,(obj.gameId,self.source))
+                    if len(rows) <= 0:
+                        continue
+                    else: 
+                        obj.gId = rows[0][1]
+                        obj.id = rows[0][0]
+                    if obj.id is not None:
+                        continue
                     
+                    obj.site = self.source
+                    obj.language = lan
+                    obj.gametype = gametype
+                    buf.append((obj.gId,obj.gameId,obj.language,obj.site,obj.gametype,
+                                obj.content,obj.title,obj.link,obj.category,obj.description,obj.pubDate))
+                except Exception , e:
+                    DaoHandler.logger.error("Prepare insert db data error , length %d , %s !"%(len(self.data),self.source))
+                    DaoHandler.logger.exception(e)
+                                
         #==========================================
         
         try:
