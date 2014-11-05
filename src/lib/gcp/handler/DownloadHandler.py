@@ -11,6 +11,7 @@ from lib.gcp.util.GcpConstant import GcpConstant
 from lib.core.TaskRun import TaskRun
 from conf import Config
 from threading import Lock
+from lib.gcp.util.StaticUtil import StaticUtil
 
 from lib.gcp.util.Logger import LoggerFactory
 
@@ -67,8 +68,15 @@ class DownloadHandler(object):
             
         except Exception , e:
             self.logger.error("Download file[%s] error !"%self.filename)
-            self.logger.error(e)
+            
+            #re load
+            path = Config.configs['game.bigfish']['data_path'] +StaticUtil.getPara(self.conf)+ StaticUtil.getTimeStrForFold() + "bigfish.xml"
+            self.logger.info("Reload filename[%s] cfg[%s]",(path,self.conf))
+            download = DownloadHandler(self.conf, path, self.source)
+            TaskRun.getInstance().submit(download)
+            
             self.logger.exception(e)
+            
         finally:
             DownloadHandler.Threads_lock.acquire()
             try:

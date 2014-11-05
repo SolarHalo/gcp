@@ -45,6 +45,14 @@ if __name__ == '__main__':
     logger.info("Start Task end!");
     
     #TaskRun.getInstance().submit(lib.gcp.handler.alawar.UrlParserHandler.UrlParserHandler())
-    TaskRun.getInstance().submit(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler())
+    TaskRun.getInstance().submit(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game'))
+    
+    time.sleep(60*7)
+    
+    TaskRun.getInstance().submit(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game_catch'))
+    
+    TaskRun.getInstance().submit(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game_daily'))
+    
+    TaskRun.getInstance().submit(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game_feature'))
     
     pass

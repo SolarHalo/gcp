@@ -14,9 +14,10 @@ class UrlParserHandler:
     
     logger = LoggerFactory.getLogger()
 
-    def __init__(self):
-        '''
-        '''
+    table = None
+    
+    def __init__(self,table = None):
+        self.table = table
                     
     def execute(self):
         self.logger.info("Ready to parser url !")
@@ -30,6 +31,9 @@ class UrlParserHandler:
                 urlTemples.append([urlTemple,table])
         
         for urlTemple in urlTemples:
+            if self.table is not None and urlTemple[1] != self.table:
+                continue
+            
             cf = Config.configs['game.alawar']
             urls = StaticUtil.convertUrl(urlTemple, cf)
             self.logger.info("Parser xml convert count[%d]!" % len(urls));

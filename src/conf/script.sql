@@ -21,7 +21,7 @@ CREATE TABLE `game` (
   `bullet2` varchar(300) DEFAULT NULL, /*--游戏要点2--*/
   `bullet3` varchar(300) DEFAULT NULL, /*--游戏要点3--*/
   `bullet4` varchar(300) DEFAULT NULL, /*--游戏要点4--*/
-  `bullet5` varchar(300) DEFAULT NULL, /*--游戏要点5--*/
+  `bullet5` varchar(1024) DEFAULT NULL, /*--游戏要点5--*/
   
   `img_small` varchar(300) DEFAULT NULL, /*--小图 big60*40 alawar 44*44--*/
   `img_med` varchar(300) DEFAULT NULL, /*--小图 big80*80 alawar 100*100--*/
@@ -74,10 +74,10 @@ CREATE TABLE `game_daily` (
   `language` varchar(20) DEFAULT NULL,
   `site` varchar(10) DEFAULT NULL,
   `gametype` varchar(10) DEFAULT NULL,
-  `content` varchar(10) DEFAULT NULL,
+  `content` varchar(50) DEFAULT NULL,
   
-  `title` varchar(100) DEFAULT NULL,
-  `link` varchar(200) DEFAULT NULL,
+  `title` varchar(200) DEFAULT NULL,
+  `link` varchar(400) DEFAULT NULL,
   `category` varchar(100) DEFAULT NULL,
   `description` text,
   `pub_date` timestamp, 
@@ -95,7 +95,7 @@ CREATE TABLE `game_catch` (
   `gametype` varchar(10) DEFAULT NULL,
   
   `logo_url` varchar(200) DEFAULT NULL,
-  `images_med` varchar(300) DEFAULT NULL,
+  `images_med` varchar(500) DEFAULT NULL,
   `tagline` varchar(100) DEFAULT NULL,
   `offer_start_date` timestamp, 
   `offer_end_date` timestamp, 
