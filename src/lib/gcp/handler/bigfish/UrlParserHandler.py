@@ -11,11 +11,12 @@ from lib.gcp.util.GcpConstant import GcpConstant
 from lib.gcp.util.StaticUtil import StaticUtil
 class UrlParserHandler:
     
+    table = None
+    
     logger = LoggerFactory.getLogger()
 
-    def __init__(self):
-        '''
-        '''
+    def __init__(self,table = None):
+        self.table = table
         
     def execute(self):
         
@@ -30,6 +31,8 @@ class UrlParserHandler:
                 urlTemples.append([urlTemple,table])
                 
         for urlTemple in urlTemples:        
+            if self.table is not None and urlTemple[1] != self.table:
+                continue
             cf = Config.configs['game.bigfish']
             urls = StaticUtil.convertUrl(urlTemple, cf)
             

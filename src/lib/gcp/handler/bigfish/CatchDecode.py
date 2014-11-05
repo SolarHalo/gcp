@@ -72,7 +72,7 @@ class CatchDecode(ContentHandler):
         elif name == 'offer_start_date' and self.buf is not None and self.buf != '':
             try:
                 if self.buf is not None and self.buf != '':
-                    self.entity.offerStartDate = time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(self.buf[:-6],'%a, %m %b %Y %H:%M:%S'))
+                    self.entity.offerStartDate = time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(self.buf[:-6],'%a, %d %b %Y %H:%M:%S'))
             except Exception , e:
                 self.logger.error("offer_start_date error %s , %s!"%(self.buf,self.source))
                 self.logger.error(e);
@@ -80,7 +80,7 @@ class CatchDecode(ContentHandler):
         elif name == 'offer_end_date' and self.buf is not None and self.buf != '':
             try:
                 if self.buf is not None and self.buf != '':
-                    self.entity.offerStartDate = time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(self.buf[:-6],'%a, %m %b %Y %H:%M:%S'))
+                    self.entity.offerStartDate = time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(self.buf[:-6],'%a, %d %b %Y %H:%M:%S'))
             except Exception , e:
                 self.logger.error("offer_end_date error %s , %s!"%(self.buf,self.source))
                 self.logger.error(e);
