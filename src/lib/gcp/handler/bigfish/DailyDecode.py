@@ -71,7 +71,7 @@ class DailyDecode(ContentHandler):
         elif name == 'pubDate':
             try:
                 if self.buf is not None and self.buf != '':
-                    self.entity.pubDate = time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(self.buf[:-6],'%a, %m %b %Y %H:%M:%S'))
+                    self.entity.pubDate = time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(self.buf[:-6],'%a, %d %b %Y %H:%M:%S'))
             except Exception , e:
                 DailyDecode.logger.error("pubDate error %s , %s!"%(self.buf,self.source))
                 DailyDecode.logger.error(e)

@@ -1,3 +1,4 @@
+DROP TABLE  `game` ;
 CREATE TABLE `game` (
   `id` integer NOT NULL AUTO_INCREMENT,
   `game_id` varchar(128) NOT NULL DEFAULT '',
@@ -46,7 +47,7 @@ CREATE TABLE `game` (
 ) CHARSET=utf8;
 
 
-
+DROP TABLE  `game_feature` ;
 CREATE TABLE `game_feature` (
   `id` integer NOT NULL AUTO_INCREMENT,
   `g_id` integer,
