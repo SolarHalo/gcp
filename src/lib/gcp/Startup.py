@@ -31,28 +31,30 @@ if __name__ == '__main__':
     keep= Config.configs['sys']['threadpool.keep']
     pool = ThreadPool(poolmin,poolmax,keep);
     
-    logger.info("Ready to start Scheduler !");
-    TimeScheduler.getInstance().init(pool);
-    TimeScheduler.getInstance().registerInterval(lib.gcp.handler.alawar.UrlParserHandler.UrlParserHandler(),
-                                                 minutes = 17,start_date ='2014-12-02 13:17:00')
-    TimeScheduler.getInstance().registerInterval(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler(),
-                                                 minutes = 17,start_date ='2014-12-02 13:17:00')
-    TimeScheduler.getInstance().start()
-    logger.info("Start Scheduler end !");
-    
     logger.info("Ready to start Task !");
     TaskRun.getInstance().start(treadpool= pool);
     logger.info("Start Task end!");
     
-    #TaskRun.getInstance().submit(lib.gcp.handler.alawar.UrlParserHandler.UrlParserHandler())
-    TaskRun.getInstance().submit(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game'))
+    logger.info("Ready to start Scheduler !");
+    TimeScheduler.getInstance().init(pool);
+    TimeScheduler.getInstance().registerInterval(lib.gcp.handler.alawar.UrlParserHandler.UrlParserHandler(),
+                                                 minutes = 00,start_date ='2014-11-02 00:00:00')
     
-    time.sleep(60*7)
+    TimeScheduler.getInstance().registerInterval(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game'),
+                                                 minutes = 30,start_date ='2014-11-02 00:00:00')
     
-    TaskRun.getInstance().submit(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game_catch'))
+    TimeScheduler.getInstance().registerInterval(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game_catch'),
+                                                 minutes = 30,start_date ='2014-11-02 00:00:00')
     
-    TaskRun.getInstance().submit(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game_daily'))
+    TimeScheduler.getInstance().registerInterval(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game_daily'),
+                                                 minutes = 30,start_date ='2014-11-02 00:00:00')
     
-    TaskRun.getInstance().submit(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game_feature'))
+    TimeScheduler.getInstance().registerInterval(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game_feature'),
+                                                 minutes = 30,start_date ='2014-11-02 00:00:00')
+    
+    
+    TimeScheduler.getInstance().start()
+    logger.info("Start Scheduler end !");
+    
     
     pass
