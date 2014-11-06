@@ -38,7 +38,7 @@ if __name__ == '__main__':
     logger.info("Ready to start Scheduler !");
     TimeScheduler.getInstance().init(pool);
     TimeScheduler.getInstance().registerInterval(lib.gcp.handler.alawar.UrlParserHandler.UrlParserHandler(),
-                                                 minutes = 00,start_date ='2014-11-02 00:00:00')
+                                                 minutes = 10,start_date ='2014-11-02 00:00:00')
     
     TimeScheduler.getInstance().registerInterval(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game'),
                                                  minutes = 30,start_date ='2014-11-02 00:00:00')
