@@ -9,6 +9,8 @@ from lib.gcp.util.Logger import LoggerFactory
 from lib.core.TaskRun import TaskRun
 from lib.gcp.util.GcpConstant import GcpConstant
 from lib.gcp.util.StaticUtil import StaticUtil
+import os
+
 class UrlParserHandler:
     
     table = None
@@ -38,7 +40,9 @@ class UrlParserHandler:
             
             self.logger.info("Parser xml convert count[%d]!" % len(urls));
             for conf in urls:
-                filepath = Config.configs['game.bigfish']['data_path'] +StaticUtil.getPara(conf)+ StaticUtil.getTimeStrForFold() + "bigfish.xml"
+                filepath = os.path.join(StaticUtil.mkdir(Config.configs['game.bigfish']['data_path'], conf),
+                                        StaticUtil.getTimeStrForFold() + "bigfish.xml")
+                #filepath = Config.configs['game.bigfish']['data_path'] +StaticUtil.getPara(conf)+ StaticUtil.getTimeStrForFold() + "bigfish.xml"
                 download = DownloadHandler(conf, filepath, GcpConstant.Source.Bigfish)
                 TaskRun.getInstance().submit(download)
                 

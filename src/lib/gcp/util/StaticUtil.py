@@ -4,9 +4,33 @@ Created on 2013-8-18
 @author: yuyue
 '''
 #  oristr like 'Saturday 11/01/2014 7:00pm' 
+import os
 import time
+import datetime
+
 class StaticUtil:
     
+    @staticmethod
+    def mkdir(fd,conf):
+        new_path = fd
+        
+        now = datetime.datetime.now()
+        new_path = os.path.join(new_path, now.strftime('%Y-%m-%d-%H'))
+        if not os.path.isdir(new_path):    
+            os.makedirs(new_path)
+            
+        new_path = os.path.join(new_path, conf['table'])
+        if not os.path.isdir(new_path):    
+            os.makedirs(new_path)
+                    
+        for key in conf.keys():
+            if not key.startswith('url') and not key.startswith('table'):
+                new_path = os.path.join(new_path, conf[key])
+                if not os.path.isdir(new_path):    
+                    os.makedirs(new_path)
+        return new_path
+                
+        
     @staticmethod
     def getPara(conf):
         result = ''
