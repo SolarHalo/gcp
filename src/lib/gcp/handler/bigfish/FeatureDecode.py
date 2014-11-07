@@ -17,7 +17,7 @@ class FeatureDecode(ContentHandler):
     
     logger = LoggerFactory.getLogger()
     
-    batchSize = Config.configs['sys']['db.batch.size']
+    batchSize = 100
     
     baseBuffer = None;
     
@@ -35,6 +35,9 @@ class FeatureDecode(ContentHandler):
         self.conf = conf
         self.filename = filename
         self.source = source
+        
+        configs = Config.getConfig()
+        self.batchSize = configs['sys']['db.batch.size']
 
     def startDocument(self):
         self.buf = ''

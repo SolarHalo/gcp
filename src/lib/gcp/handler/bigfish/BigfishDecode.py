@@ -15,14 +15,15 @@ import time
 
 class BigfishEntityResolver(xml.sax.handler.EntityResolver):
     def resolveEntity(self, publicId, systemId):
-        return Config.configs['game.bigfish']['dtd'] + systemId
+        configs = Config.getConfig()
+        return configs['game.bigfish']['dtd'] + systemId
     
 
 class BigfishDecode(ContentHandler):  
     
     logger = LoggerFactory.getLogger()
     
-    batchSize = Config.configs['sys']['db.batch.size']
+    batchSize = 100
     
     baseBuffer = None;
     
@@ -39,6 +40,9 @@ class BigfishDecode(ContentHandler):
         self.conf = conf
         self.filename = filename
         self.source = source
+        
+        configs = Config.getConfig()
+        self.batchSize = configs['sys']['db.batch.size']
 
     def startDocument(self):
         self.buffer = ''

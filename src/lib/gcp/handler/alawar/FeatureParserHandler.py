@@ -28,16 +28,21 @@ class FeatureParserHandler:
     def execute(self):
         self.logger.info("Ready to parse xml[%s] !" % self.filename)
         
-        parser = xml.sax.make_parser()  
-        parser.setFeature(xml.sax.handler.feature_namespaces, 0)
-        parser.setFeature(xml.sax.handler.feature_validation, 0)
-        parser.setEntityResolver(AlawarEntityResolver())
-        handler = AlawarDecode(self.conf,self.filename,self.source)  
-        parser.setContentHandler(handler)  
-        data = ""  
-        with open(self.filename) as file:  
-            data = file.read().strip()  
-        parser.parse(StringIO.StringIO(data))  
+        try:
+            
+            parser = xml.sax.make_parser()  
+            parser.setFeature(xml.sax.handler.feature_namespaces, 0)
+            parser.setFeature(xml.sax.handler.feature_validation, 0)
+            parser.setEntityResolver(AlawarEntityResolver())
+            handler = AlawarDecode(self.conf,self.filename,self.source)  
+            parser.setContentHandler(handler)  
+            data = ""  
+            with open(self.filename) as xmlfile:  
+                data = xmlfile.read().strip()  
+            parser.parse(StringIO.StringIO(data))
+        except Exception , e:
+            self.logger.error("Parse Xml[%s] %s error !"%(self.filename,self.source))
+            self.logger.exception(e)  
         
         self.logger.info("Parse xml[%s] end !" % self.filename)
         

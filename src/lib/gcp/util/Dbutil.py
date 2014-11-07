@@ -11,10 +11,11 @@ import time
  
 class Dbutil: 
     def __init__(self):  
-        self.host = Config.configs['db']['db_host']
-        self.user = Config.configs['db']['db_user']
-        self.pwd = Config.configs['db']['db_pass']
-        self.db = Config.configs['db']['db_db']
+        configs = Config.getConfig()
+        self.host = configs['db']['db_host']
+        self.user = configs['db']['db_user']
+        self.pwd = configs['db']['db_pass']
+        self.db = configs['db']['db_db']
         self.conn = None
         try:
             self.conn = MySQLdb.Connect(host=self.host, user=self.user, passwd=self.pwd, db=self.db, charset="utf8", use_unicode="True") 

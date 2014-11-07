@@ -6,9 +6,6 @@ Created on 2014-10-30
 from lib.gcp.util.Logger import LoggerFactory
 from lib.gcp.util.Dbutil import Dbutil
 from lib.gcp.util.GcpConstant import GcpConstant
-from conf import Config
-import time
-
 
 class DaoHandler(object):
     

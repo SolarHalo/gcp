@@ -12,6 +12,11 @@ import sys
 class StaticUtil:
     
     @staticmethod
+    def remove(filename):
+        if os.path.exists(filename) and os.path.isfile(filename):  
+            os.remove(filename)
+            
+    @staticmethod
     def reload_by_module_name(module_name):  
         try:  
             module =  sys.modules[module_name]  

@@ -11,6 +11,5 @@ if __name__ == '__main__':
     while True:
         StaticUtil.reload_by_module_name(Config.__name__)
         from conf import Config
-        print Config.configs
         time.sleep(5)
     pass

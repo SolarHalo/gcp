@@ -18,29 +18,31 @@ class UrlParserHandler:
 
     table = None
     
+    
     def __init__(self,table = None):
         self.table = table
                     
     def execute(self):
+        configs = Config.getConfig()
         self.logger.info("Ready to parser url !")
         
         urlTemples = []
         
-        for key in Config.configs['game.alawar'].keys():
+        for key in configs['game.alawar'].keys():
             if key.startswith('url'):
                 table = key.replace('url.','')
-                urlTemple = Config.configs['game.alawar'][key]
+                urlTemple = configs['game.alawar'][key]
                 urlTemples.append([urlTemple,table])
         
         for urlTemple in urlTemples:
             if self.table is not None and urlTemple[1] != self.table:
                 continue
             
-            cf = Config.configs['game.alawar']
+            cf = configs['game.alawar']
             urls = StaticUtil.convertUrl(urlTemple, cf)
             self.logger.info("Parser xml convert count[%d]!" % len(urls));
             for conf in urls:
-                filepath = os.path.join(StaticUtil.mkdir(Config.configs['game.alawar']['data_path'], conf),
+                filepath = os.path.join(StaticUtil.mkdir(configs['game.alawar']['data_path'], conf),
                                         StaticUtil.getTimeStrForFold() + "alawar.xml")
                 #filepath = Config.configs['game.alawar']['data_path'] +StaticUtil.getPara(conf)+ StaticUtil.getTimeStrForFold() + "alawar.xml"
                 download = DownloadHandler(conf, filepath, GcpConstant.Source.Alawar)

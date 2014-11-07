@@ -11,13 +11,10 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 sys.path.append('./')
 from conf import Config
-import time
-
 from lib.gcp.util.Logger import LoggerFactory
 from lib.core.TaskRun import TaskRun
 import lib.gcp.handler.bigfish.UrlParserHandler
 import lib.gcp.handler.alawar.UrlParserHandler
-
 from lib.core.TimeScheduler import TimeScheduler
 from apscheduler.threadpool import ThreadPool
 
@@ -26,9 +23,10 @@ if __name__ == '__main__':
     logger = LoggerFactory.getLogger()
     
     #thread pool
-    poolmin = Config.configs['sys']['threadpool.min']
-    poolmax = Config.configs['sys']['threadpool.max']
-    keep= Config.configs['sys']['threadpool.keep']
+    configs = Config.getConfig()
+    poolmin = configs['sys']['threadpool.min']
+    poolmax = configs['sys']['threadpool.max']
+    keep = configs['sys']['threadpool.keep']
     pool = ThreadPool(poolmin,poolmax,keep);
     
     logger.info("Ready to start Task !");
@@ -38,10 +36,10 @@ if __name__ == '__main__':
     logger.info("Ready to start Scheduler !");
     TimeScheduler.getInstance().init(pool);
     TimeScheduler.getInstance().registerInterval(lib.gcp.handler.alawar.UrlParserHandler.UrlParserHandler(),
-                                                 minutes = 10,start_date ='2014-11-02 00:00:00')
+                                                 minutes = 30,start_date ='2014-11-02 00:00:00')
     
     TimeScheduler.getInstance().registerInterval(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game'),
-                                                 minutes = 10,start_date ='2014-11-02 00:00:00')
+                                                 minutes = 30,start_date ='2014-11-02 00:00:00')
     
     TimeScheduler.getInstance().registerInterval(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game_catch'),
                                                  minutes = 30,start_date ='2014-11-02 00:00:00')

@@ -21,26 +21,26 @@ class UrlParserHandler:
         self.table = table
         
     def execute(self):
-        
+        configs = Config.getConfig()
         self.logger.info("Ready to parser url !")
 
         urlTemples = []
         
-        for key in Config.configs['game.bigfish'].keys():
+        for key in configs['game.bigfish'].keys():
             if key.startswith('url'):
                 table = key.replace('url.','')
-                urlTemple = Config.configs['game.bigfish'][key]
+                urlTemple = configs['game.bigfish'][key]
                 urlTemples.append([urlTemple,table])
                 
         for urlTemple in urlTemples:        
             if self.table is not None and urlTemple[1] != self.table:
                 continue
-            cf = Config.configs['game.bigfish']
+            cf = configs['game.bigfish']
             urls = StaticUtil.convertUrl(urlTemple, cf)
             
             self.logger.info("Parser xml convert count[%d]!" % len(urls));
             for conf in urls:
-                filepath = os.path.join(StaticUtil.mkdir(Config.configs['game.bigfish']['data_path'], conf),
+                filepath = os.path.join(StaticUtil.mkdir(configs['game.bigfish']['data_path'], conf),
                                         StaticUtil.getTimeStrForFold() + "bigfish.xml")
                 #filepath = Config.configs['game.bigfish']['data_path'] +StaticUtil.getPara(conf)+ StaticUtil.getTimeStrForFold() + "bigfish.xml"
                 download = DownloadHandler(conf, filepath, GcpConstant.Source.Bigfish)

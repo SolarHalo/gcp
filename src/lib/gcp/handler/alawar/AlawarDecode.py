@@ -14,14 +14,15 @@ import time
 
 class AlawarEntityResolver(xml.sax.handler.EntityResolver):
     def resolveEntity(self, publicId, systemId):
-        return Config.configs['game.alawar']['dtd']+systemId
+        configs = Config.getConfig()
+        return configs['game.alawar']['dtd']+systemId
     
 
 class AlawarDecode(ContentHandler):  
     
     logger = LoggerFactory.getLogger()
     
-    batchSize = Config.configs['sys']['db.batch.size']
+    batchSize = 100
     
     baseBuffer = None;
     
@@ -38,6 +39,9 @@ class AlawarDecode(ContentHandler):
         self.conf = conf
         self.filename = filename
         self.source = source
+        
+        configs = Config.getConfig()
+        self.batchSize = configs['sys']['db.batch.size']
 
     def startDocument(self):
         self.buf = ''
