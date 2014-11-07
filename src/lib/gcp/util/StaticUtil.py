@@ -7,9 +7,30 @@ Created on 2013-8-18
 import os
 import time
 import datetime
+import sys
 
 class StaticUtil:
     
+    @staticmethod
+    def reload_by_module_name(module_name):  
+        try:  
+            module =  sys.modules[module_name]  
+            reload(module)  
+            __import__(module_name)  
+        except KeyError:  
+            print('the module is not imported')  
+        except:  
+            print('reload failure')  
+        
+    @staticmethod
+    def reload_by_class(clazz):  
+        try:  
+            module_name = clazz.__module__  
+            StaticUtil.reload_by_module_name(module_name)  
+        except AttributeError:  
+            print('parameter must be class or object')  
+
+
     @staticmethod
     def mkdir(fd,conf):
         new_path = fd
