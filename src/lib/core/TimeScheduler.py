@@ -28,7 +28,12 @@ class TimeScheduler:
         else:
             self.sched = Scheduler({'apscheduler.threadpool':threadpool})  
         self.sched.daemonic = False 
-            
+    
+    def registerCronExp(self,handler,year=None, month=None, day=None, hour=None, minute=None, second=None,
+                     start_date=None):
+        return self.sched.add_cron_job(handler.execute,year, month, day, None,None, 
+                                       hour, minute, second,None)
+        
     def registerCron(self, handler ,year=None, month=None, day=None, week=None,
                      day_of_week=None, hour=None, minute=None, second=None,
                      start_date=None):
