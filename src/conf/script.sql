@@ -62,7 +62,7 @@ CREATE TABLE `game_feature` (
   `dwheight` varchar(10) DEFAULT NULL, 
   `gamerank` varchar(10) DEFAULT NULL, 
   `releasedate` timestamp, 
-  
+  `timestamp` timestamp ,/*-- 采集时间 --*/
   PRIMARY KEY (`id`)
 ) CHARSET=utf8;
 
@@ -82,7 +82,7 @@ CREATE TABLE `game_daily` (
   `category` varchar(100) DEFAULT NULL,
   `description` text,
   `pub_date` timestamp, 
-  
+  `timestamp` timestamp ,/*-- 采集时间 --*/
   PRIMARY KEY (`id`)
 ) CHARSET=utf8;
 
@@ -102,6 +102,6 @@ CREATE TABLE `game_catch` (
   `offer_end_date` timestamp, 
   `link` varchar(500) DEFAULT NULL,
   `price` varchar(50) DEFAULT NULL,
-  
+  `timestamp` timestamp ,/*-- 采集时间 --*/
   PRIMARY KEY (`id`)
 ) CHARSET=utf8;

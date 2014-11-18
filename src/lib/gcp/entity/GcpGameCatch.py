@@ -3,6 +3,7 @@ Created on 2014-11-3
 
 @author: tiamsw
 '''
+import datetime
 
 class GcpGameCatch:
     
@@ -22,6 +23,9 @@ class GcpGameCatch:
     link = None
     price = None
 
-
+    timestamp = None
+    
+    def __init__(self):
+        self.timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
         

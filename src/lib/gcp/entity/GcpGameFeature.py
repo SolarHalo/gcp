@@ -3,7 +3,7 @@ Created on 2014-11-3
 
 @author: tiamsw
 '''
-
+import datetime
 class GcpGameFeature:
 
     id = None
@@ -17,4 +17,7 @@ class GcpGameFeature:
     dwwidth = None 
     dwheight = None 
     gamerank = None 
-    releasedate = None   
+    releasedate = None
+    
+    def __init__(self):
+        self.timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")   

@@ -26,19 +26,19 @@ class DaoHandler(object):
         %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
     selectGameSql = "select game_id c from game where game_id = %s and site = %s"
     
-    insertFeatureSql = 'insert into game_feature(g_id,game_id,language,site,gametype,hasdwfeature,dwwidth,dwheight,gamerank,releasedate) \
-        values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    insertFeatureSql = 'insert into game_feature(g_id,game_id,language,site,gametype,hasdwfeature,dwwidth,dwheight,gamerank,releasedate,timestamp) \
+        values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
     
     selectFeatureSql = 'SELECT f.id AS fid ,g.id AS gid FROM game g LEFT JOIN game_feature f ON g.id = f.g_id WHERE g.game_id = %s AND g.site = %s'
     
     
-    insertCatchSql = 'insert into game_catch(g_id,game_id,language,site,gametype,logo_url,images_med,tagline,offer_start_date,offer_end_date,link,price) \
-        values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    insertCatchSql = 'insert into game_catch(g_id,game_id,language,site,gametype,logo_url,images_med,tagline,offer_start_date,offer_end_date,link,price,timestamp) \
+        values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
     
     selectCatchSql = 'SELECT c.id AS cid ,g.id AS gid FROM game g LEFT JOIN game_catch c ON g.id = c.g_id WHERE g.game_id = %s AND g.site = %s'
     
-    insertDailySql = 'insert into game_daily(g_id,game_id,language,site,gametype,content,title,link,category,description,pub_date) \
-        values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    insertDailySql = 'insert into game_daily(g_id,game_id,language,site,gametype,content,title,link,category,description,pub_date,timestamp) \
+        values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
     
     selectDailySql = 'SELECT d.id AS did ,g.id AS gid FROM game g LEFT JOIN game_daily d ON g.id = d.g_id WHERE g.game_id = %s AND g.site = %s'
     
@@ -104,7 +104,7 @@ class DaoHandler(object):
                     obj.site = self.source
                     obj.language = lan
                     obj.gametype = gametype
-                    buf.append((obj.gId,obj.gameId,obj.language,obj.site,obj.gametype,obj.hasdwfeature,obj.dwwidth,obj.dwheight,obj.gamerank,obj.releasedate))
+                    buf.append((obj.gId,obj.gameId,obj.language,obj.site,obj.gametype,obj.hasdwfeature,obj.dwwidth,obj.dwheight,obj.gamerank,obj.releasedate,obj.timestamp))
                 except Exception , e:
                     DaoHandler.logger.error("Prepare insert db data error , length %d , %s !"%(len(self.data),self.source))
                     DaoHandler.logger.exception(e)     
@@ -125,7 +125,7 @@ class DaoHandler(object):
                     obj.language = lan
                     obj.gametype = gametype
                     buf.append((obj.gId,obj.gameId,obj.language,obj.site,obj.gametype,
-                                obj.logoUrl,obj.imagesMed,obj.tagline,obj.offerStartDate,obj.offerEndDate,obj.link,obj.price))
+                                obj.logoUrl,obj.imagesMed,obj.tagline,obj.offerStartDate,obj.offerEndDate,obj.link,obj.price,obj.timestamp))
                 except Exception , e:
                     DaoHandler.logger.error("Prepare insert db data error , length %d , %s !"%(len(self.data),self.source))
                     DaoHandler.logger.exception(e)
@@ -146,7 +146,7 @@ class DaoHandler(object):
                     obj.language = lan
                     obj.gametype = gametype
                     buf.append((obj.gId,obj.gameId,obj.language,obj.site,obj.gametype,
-                                obj.content,obj.title,obj.link,obj.category,obj.description,obj.pubDate))
+                                obj.content,obj.title,obj.link,obj.category,obj.description,obj.pubDate,obj.timestamp))
                 except Exception , e:
                     DaoHandler.logger.error("Prepare insert db data error , length %d , %s !"%(len(self.data),self.source))
                     DaoHandler.logger.exception(e)
