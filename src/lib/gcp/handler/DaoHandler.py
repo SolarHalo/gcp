@@ -21,9 +21,9 @@ class DaoHandler(object):
         longdesc,price,gamerank,releasedate,gamesize,language,site,gametype,systemreq,\
         bullet1,bullet2,bullet3,bullet4,bullet5,img_small,img_med,img_subfeature,img_feature,img_thumb1,\
         img_thumb2,img_thumb3,img_screen1,img_screen2,img_screen3,video,flash,downloadurl,\
-        buyurl,downloadiframe,buyiframe,foldername) \
+        buyurl,downloadiframe,buyiframe,foldername,timestamp) \
         values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,\
-        %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+        %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
     selectGameSql = "select game_id c from game where game_id = %s and site = %s"
     
     insertFeatureSql = 'insert into game_feature(g_id,game_id,language,site,gametype,hasdwfeature,dwwidth,dwheight,gamerank,releasedate) \
@@ -82,7 +82,7 @@ class DaoHandler(object):
                         obj.bullet1,obj.bullet2,obj.bullet3,obj.bullet4,obj.bullet5,
                         obj.imgSmall,obj.imgMed,obj.imgSubfeature ,obj.imgFeature,obj.imgThumb1,
                         obj.imgThumb2,obj.imgThumb3,obj.imgScreen1,obj.imgScreen2,obj.imgScreen3,
-                        obj.video,obj.flash,obj.downloadurl,obj.buyurl,obj.downloadiframe,obj.buyiframe,obj.foldername
+                        obj.video,obj.flash,obj.downloadurl,obj.buyurl,obj.downloadiframe,obj.buyiframe,obj.foldername,obj.timestamp
                      ))
                     
                 except Exception , e:

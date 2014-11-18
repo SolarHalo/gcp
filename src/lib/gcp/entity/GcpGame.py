@@ -3,6 +3,7 @@ Created on 2014-10-30
 
 @author: shiwei
 '''
+import datetime
 
 class GcpGame:
     
@@ -52,9 +53,10 @@ class GcpGame:
     
     foldername = None
     
+    timestamp = None
+    
     def __init__(self):
-        '''
-        '''
+        self.timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     def toString(self):
         return 'gameId:%s, gameName:%s, family:%s, familyid:%s, \

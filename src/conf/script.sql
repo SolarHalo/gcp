@@ -42,6 +42,7 @@ CREATE TABLE `game` (
   `buyiframe` varchar(300) DEFAULT NULL, /*--购买框架链接--*/
   
   `foldername` varchar(300) DEFAULT NULL, /*--语言_游戏标题（组合游戏路径用）--*/
+  `timestamp` timestamp ,/*-- 采集时间 --*/
   
   PRIMARY KEY (`id`)
 ) CHARSET=utf8;
