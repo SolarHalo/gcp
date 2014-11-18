@@ -124,7 +124,7 @@ class AlawarDecode(ContentHandler):
             self.entity.gameName = self.buf
         elif 'Item' == name:
             self.baseBuffer.append(self.entity)
-            if len(self.baseBuffer) >= AlawarDecode.batchSize:
+            if len(self.baseBuffer) >= self.batchSize:
                 self.logger.info( 'go to dao :%d  , %s ' % (len(self.baseBuffer),self.source));
                 dao = DaoHandler(self.filename,self.conf,self.baseBuffer,self.source)
                 TaskRun.getInstance().submit(dao)

@@ -8,8 +8,6 @@ from lib.gcp.util.StaticUtil import StaticUtil
 from conf import Config
 import sys
 if __name__ == '__main__':
-    while True:
-        StaticUtil.reload_by_module_name(Config.__name__)
-        from conf import Config
-        time.sleep(5)
+    configs = Config.getConfig()
+    print configs['sys']['db.batch.size']
     pass

@@ -189,7 +189,7 @@ class BigfishDecode(ContentHandler):
                 self.entity.flashDwFeature = None  
               
             self.baseBuffer.append(self.entity)
-            if len(self.baseBuffer) >= BigfishDecode.batchSize:
+            if len(self.baseBuffer) >= self.batchSize:
                 dao = DaoHandler(self.filename,self.conf,self.baseBuffer,self.source)
                 TaskRun.getInstance().submit(dao)
                 self.baseBuffer = []
