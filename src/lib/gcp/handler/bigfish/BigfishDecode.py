@@ -145,8 +145,8 @@ class BigfishDecode(ContentHandler):
                 self.entity.buyiframe   = self.sitePrix +'.'+self.entity.language+"/download-games/"+ self.entity.gameId+"/"+assetname+"/buy_pnp.html?channel=affiliates&identifier={afcode}"
                 
             elif self.entity.gametype == 'mac':
-                self.entity.downloadurl     = self.sitePrix +'.'+self.entity.language+"/download-games/mac/"+self.entity.gameId+assetname+"/"+ "/download.html?channel=affiliates&identifier={afcode}"
-                self.entity.downloadiframe  = self.sitePrix +'.'+self.entity.language+"/download-games/mac/"+self.entity.gameId+assetname+"/"+ "/download_pnp.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadurl     = self.sitePrix +'.'+self.entity.language+"/download-games/mac/"+self.entity.gameId+"/"+assetname+ "/download.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadiframe  = self.sitePrix +'.'+self.entity.language+"/download-games/mac/"+self.entity.gameId+"/"+assetname+ "/download_pnp.html?channel=affiliates&identifier={afcode}"
                 
                 self.entity.buyurl      = self.sitePrix +'.'+self.entity.language+"/download-games/mac/"+ self.entity.gameId+"/"+assetname+"/buy.html?channel=affiliates&identifier={afcode}"
                 self.entity.buyiframe   = self.sitePrix +'.'+self.entity.language+"/download-games/mac/"+ self.entity.gameId+"/"+assetname+"/buy_pnp.html?channel=affiliates&identifier={afcode}"
