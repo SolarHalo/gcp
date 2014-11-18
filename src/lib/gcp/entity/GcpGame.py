@@ -53,7 +53,13 @@ class GcpGame:
     
     foldername = None
     
+    imgDwFeature = None
+    flashDwFeature = None
     timestamp = None
+    
+    #temp
+    dwwidth=None
+    dwheight=None
     
     def __init__(self):
         self.timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

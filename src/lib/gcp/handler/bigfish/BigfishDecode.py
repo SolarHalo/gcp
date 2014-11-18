@@ -24,6 +24,7 @@ class BigfishDecode(ContentHandler):
     logger = LoggerFactory.getLogger()
     
     sitePrix = None
+    assets = None
     
     batchSize = 100
     
@@ -46,6 +47,7 @@ class BigfishDecode(ContentHandler):
         configs = Config.getConfig()
         self.batchSize = configs['sys']['db.batch.size']
         self.sitePrix = configs['game.bigfish']['dtd'][1]
+        self.assets =  configs['game.bigfish']['dtd'][2]
 
     def startDocument(self):
         self.buffer = ''
@@ -105,6 +107,13 @@ class BigfishDecode(ContentHandler):
             self.entity.video = self.buffer
         elif name == 'hasflash':
             self.entity.flash = self.buffer
+        elif name == 'hasdwfeature':
+            self.entity.imgDwFeature = self.buffer
+            self.entity.flashDwFeature = self.buffer
+        elif name == 'dwwidth':
+            self.entity.dwwidth = self.buffer
+        elif name == 'dwheight':
+            self.entity.dwheight = self.buffer
         elif name == 'releasedate' and self.buffer is not None and self.buffer != '':
             try:
                 self.entity.releasedate = time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(self.buffer,'%Y-%m-%d %H:%M:%S'))
@@ -129,22 +138,56 @@ class BigfishDecode(ContentHandler):
                 assetname = assetname.replace(self.entity.language+"_", "")
                 
             if self.entity.gametype == 'pc':
-                self.entity.downloadurl     = self.sitePrix +'.'+self.entity.language+"/"+ self.entity.gameId+"/download-games/"+assetname+"/download.html?channel=affiliates&identifier={afcode}"
-                self.entity.downloadiframe  = self.sitePrix +'.'+self.entity.language+"/"+ self.entity.gameId+"/download-games/"+assetname+"/download_pnp.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadurl     = self.sitePrix +'.'+self.entity.language + "/download-games/" + self.entity.gameId + "/" + assetname +"/download.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadiframe  = self.sitePrix +'.'+self.entity.language + "/download-games/" + self.entity.gameId + "/" + assetname+"/download_pnp.html?channel=affiliates&identifier={afcode}"
                 
-                self.entity.buyurl      = self.sitePrix +'.'+self.entity.language+"/"+ self.entity.gameId+"/download-games/"+assetname+"/buy.html?channel=affiliates&identifier={afcode}"
-                self.entity.buyiframe   = self.sitePrix +'.'+self.entity.language+"/"+ self.entity.gameId+"/download-games/"+assetname+"/buy_pnp.html?channel=affiliates&identifier={afcode}"
+                self.entity.buyurl      = self.sitePrix +'.'+self.entity.language+"/download-games/"+ self.entity.gameId+"/"+assetname+"/buy.html?channel=affiliates&identifier={afcode}"
+                self.entity.buyiframe   = self.sitePrix +'.'+self.entity.language+"/download-games/"+ self.entity.gameId+"/"+assetname+"/buy_pnp.html?channel=affiliates&identifier={afcode}"
                 
             elif self.entity.gametype == 'mac':
-                self.entity.downloadurl = self.sitePrix +'.'+self.entity.language+"/"+ self.entity.gameId+"/download-games/mac/"+assetname+"/download.html?channel=affiliates&identifier={afcode}"
-                self.entity.downloadiframe = self.sitePrix +'.'+self.entity.language+"/"+ self.entity.gameId+"/download-games/mac/"+assetname+"/download_pnp.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadurl     = self.sitePrix +'.'+self.entity.language+"/download-games/mac/"+self.entity.gameId+assetname+"/"+ "/download.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadiframe  = self.sitePrix +'.'+self.entity.language+"/download-games/mac/"+self.entity.gameId+assetname+"/"+ "/download_pnp.html?channel=affiliates&identifier={afcode}"
                 
-                self.entity.buyurl      = self.sitePrix +'.'+self.entity.language+"/"+ self.entity.gameId+"/download-games/mac/"+assetname+"/buy.html?channel=affiliates&identifier={afcode}"
-                self.entity.buyiframe   = self.sitePrix +'.'+self.entity.language+"/"+ self.entity.gameId+"/download-games/mac/"+assetname+"/buy_pnp.html?channel=affiliates&identifier={afcode}"
+                self.entity.buyurl      = self.sitePrix +'.'+self.entity.language+"/download-games/mac/"+ self.entity.gameId+"/"+assetname+"/buy.html?channel=affiliates&identifier={afcode}"
+                self.entity.buyiframe   = self.sitePrix +'.'+self.entity.language+"/download-games/mac/"+ self.entity.gameId+"/"+assetname+"/buy_pnp.html?channel=affiliates&identifier={afcode}"
             else:
-                self.entity.downloadurl = self.sitePrix +'.'+self.entity.language+"/"+ self.entity.gameId+"/online-games/"+assetname+"/index.html?channel=affiliates&identifier={afcode}"
-                self.entity.downloadiframe = self.sitePrix +'.'+self.entity.language+"/"+ self.entity.gameId+"/online-games/"+assetname+"/index_pnp.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadurl     = self.sitePrix +'.'+self.entity.language+"/online-games/"+self.entity.gameId+"/"+ assetname+"/index.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadiframe  = self.sitePrix +'.'+self.entity.language+"/online-games/"+self.entity.gameId+"/"+ assetname+"/index_pnp.html?channel=affiliates&identifier={afcode}"
+            #movie
+            if self.entity.video == 'yes':
+                self.entity.video = self.assets +"/"+ self.entity.foldername+"/"+assetname+".flv"
+            else:
+                self.entity.video = None;
+            #video
+            if self.entity.flash == 'yes':
+                self.entity.flash = self.assets +"/"+ self.entity.foldername+"/"+assetname+"_175x150.swf"
+            else:
+                self.entity.flash = None
             
+            #img
+            self.entity.imgSmall        = self.assets +"/"+self.entity.foldername + "/" + assetname+"_60x40.jpg"
+            self.entity.imgMed          = self.assets +"/"+self.entity.foldername + "/" + assetname+"_80x80.jpg"
+            self.entity.imgFeature      = self.assets +"/"+self.entity.foldername + "/" + assetname+"_feature.jpg"
+            self.entity.imgSubfeature   = self.assets +"/"+self.entity.foldername + "/" + assetname+"_subfeature.jpg"
+            
+            self.entity.imgThumb1   = self.assets +"/"+self.entity.foldername + "/th_screen1.jpg" 
+            self.entity.imgThumb2   = self.assets +"/"+self.entity.foldername + "/th_screen2.jpg" 
+            self.entity.imgThumb3   = self.assets +"/"+self.entity.foldername + "/th_screen3.jpg" 
+            
+            self.entity.imgScreen1  = self.assets +"/"+self.entity.foldername + "/screen1.jpg" 
+            self.entity.imgScreen2  = self.assets +"/"+self.entity.foldername + "/screen2.jpg" 
+            self.entity.imgScreen3  = self.assets +"/"+self.entity.foldername + "/screen3.jpg" 
+            
+            if self.entity.imgDwFeature == 'yes':
+                self.entity.imgDwFeature = self.assets +"/"+self.entity.foldername + "/" + assetname+"_"+self.entity.dwwidth+"x"+self.entity.dwheight+".jpg"
+            else:
+                self.entity.imgDwFeature = None
+                
+            if self.entity.flashDwFeature == 'yes':
+                self.entity.flashDwFeature = self.assets +"/"+self.entity.foldername + "/" + assetname+"_"+self.entity.dwwidth+"x"+self.entity.dwheight+".swf"
+            else:
+                self.entity.flashDwFeature = None  
+              
             self.baseBuffer.append(self.entity)
             if len(self.baseBuffer) >= BigfishDecode.batchSize:
                 dao = DaoHandler(self.filename,self.conf,self.baseBuffer,self.source)

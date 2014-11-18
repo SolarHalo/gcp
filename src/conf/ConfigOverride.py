@@ -7,7 +7,7 @@ Created on 2014-10-29
 configs = {
     'game.bigfish':{
         'data_path':'/var/games/gcp/src/data/',
-        'dtd':['http://rss.bigfishgames.com/','http://www.bigfishgames'],
+        'dtd':['http://rss.bigfishgames.com/','http://www.bigfishgames','http://games.bigfishgames.com'],
         'url.game':'http://rss.bigfishgames.com/rss.php?username=zzfhrb&type=${type}&locale=${locale}&gametype=${gametype}',
         'url.game_catch':'http://rss.bigfishgames.com/rss.php?username=zzfhrb&content=catch&locale=${locale}&gametype=${gametype}',
         'url.game_daily':'http://rss.bigfishgames.com/rss.php?username=zzfhrb&content=${content}&locale=${locale}&gametype=${gametype}',

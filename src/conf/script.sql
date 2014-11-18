@@ -43,7 +43,8 @@ CREATE TABLE `game` (
   
   `foldername` varchar(300) DEFAULT NULL, /*--语言_游戏标题（组合游戏路径用）--*/
   `timestamp` timestamp ,/*-- 采集时间 --*/
-  
+  `img_dw_feature` varchar(300) DEFAULT NULL,
+  `flash_dw_feature` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) CHARSET=utf8;
 
