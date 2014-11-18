@@ -36,19 +36,19 @@ if __name__ == '__main__':
     logger.info("Ready to start Scheduler !");
     TimeScheduler.getInstance().init(pool);
     TimeScheduler.getInstance().registerInterval(lib.gcp.handler.alawar.UrlParserHandler.UrlParserHandler(),
-                                                 minutes = 30,start_date ='2014-11-02 00:00:00')
+                                                 days = 1,start_date ='2014-11-02 00:00:00')
     
     TimeScheduler.getInstance().registerInterval(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game'),
-                                                 minutes = 30,start_date ='2014-11-02 00:00:00')
+                                                 days = 1,start_date ='2014-11-02 00:00:00')
     
     TimeScheduler.getInstance().registerInterval(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game_catch'),
-                                                 minutes = 30,start_date ='2014-11-02 00:00:00')
+                                                 days = 1,start_date ='2014-11-02 01:00:00')
     
     TimeScheduler.getInstance().registerInterval(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game_daily'),
-                                                 minutes = 30,start_date ='2014-11-02 00:00:00')
+                                                 days = 1,start_date ='2014-11-02 01:00:00')
     
     TimeScheduler.getInstance().registerInterval(lib.gcp.handler.bigfish.UrlParserHandler.UrlParserHandler('game_feature'),
-                                                 minutes = 30,start_date ='2014-11-02 00:00:00')
+                                                 days = 1,start_date ='2014-11-02 01:00:00')
     
     
     TimeScheduler.getInstance().start()
