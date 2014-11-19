@@ -30,9 +30,11 @@ class UrlParserHandler:
         
         for key in configs['game.alawar'].keys():
             if key.startswith('url'):
-                table = key.replace('url.','')
+                attr = key.split(".")
+                table = attr[1]
+                locale = attr[2]
                 urlTemple = configs['game.alawar'][key]
-                urlTemples.append([urlTemple,table])
+                urlTemples.append([urlTemple,table,locale])
         
         for urlTemple in urlTemples:
             if self.table is not None and urlTemple[1] != self.table:

@@ -31,8 +31,17 @@ configs = {
     'game.alawar':{
         'data_path':'/var/games/gcp/src/data/',
         'dtd':'http://export.alawar.com/',
-        'url.game':'http://eu.export.alawar.com/games_agsn_xml.php?pid=10328&locale=${locale}',
-        '${locale}':['en','de','fr','nl','it','pt','es','tr']
+        'url.game.en':'http://www.alawar.com/export/games_agsn_xml.php?pid=10328',
+        'url.game.de':'http://www.alawar.de/export/games_agsn_xml.php?pid=10328',
+        'url.game.pl':'http://www.alawar.pl/export/games_agsn_xml.php?pid=10328',
+        'url.game.ru':'http://export.alawar.ru/games_agsn_xml.php?pid=10328&lang=ru',
+        'url.game.tr':'http://eu.export.alawar.com/games_agsn_xml.php?pid=10328&locale=tr',
+        'url.game.es':'http://eu.export.alawar.com/games_agsn_xml.php?pid=10328&locale=es',
+        'url.game.pt':'http://eu.export.alawar.com/games_agsn_xml.php?pid=10328&locale=pt',
+        'url.game.it':'http://eu.export.alawar.com/games_agsn_xml.php?pid=10328&locale=it',
+        'url.game.fr':'http://eu.export.alawar.com/games_agsn_xml.php?pid=10328&locale=fr',
+        'url.game.nl':'http://eu.export.alawar.com/games_agsn_xml.php?pid=10328&locale=nl',
+        'url.game.cs':'http://eu.export.alawar.com/games_agsn_xml.php?pid=10328&locale=cs'
     }
     
 }

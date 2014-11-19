@@ -71,7 +71,10 @@ class StaticUtil:
     @staticmethod
     def convertUrl(urlTemple,cf):
         datas = []
-        datas.append({'url':urlTemple[0],'table':urlTemple[1]})
+        if len(urlTemple) >= 3:
+            datas.append({'url':urlTemple[0],'table':urlTemple[1],'locale':urlTemple[2]})
+        else:   
+            datas.append({'url':urlTemple[0],'table':urlTemple[1]})
         varmap = {}
         prefix = "${"
         end = "}"

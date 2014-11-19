@@ -54,5 +54,4 @@ if __name__ == '__main__':
     TimeScheduler.getInstance().start()
     logger.info("Start Scheduler end !");
     
-    
     pass
