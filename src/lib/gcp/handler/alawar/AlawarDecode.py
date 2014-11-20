@@ -91,6 +91,8 @@ class AlawarDecode(ContentHandler):
                 if self.buf is not None and self.buf != '':
                     self.entity.longdesc = self.buf
             elif 'FullVersionFeatures' == self.Code:
+                if self.buf is None or self.buf == '':
+                    return 
                 values = self.buf.split("</li><li>")
                 leng = len(values)
                 index = -1;
@@ -109,6 +111,8 @@ class AlawarDecode(ContentHandler):
                         elif index == 4:
                             self.entity.bullet5 = value
             elif 'OrderUrl' == self.Code:
+                if self.buf is None or self.buf == '':
+                    return
                 self.entity.buyurl = self.buf
             elif 'Embed' == self.Code:  # rewrite
                 self.entity.downloadiframe = self.buf
