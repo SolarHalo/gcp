@@ -97,7 +97,7 @@ class AlawarDecode(ContentHandler):
                 if leng > 0:
                     for value in values:
                         index += 1
-                        value = value[index].replace('<ul><li>','').replace('</li></ul>','')
+                        value = value.replace('<ul><li>','').replace('</li></ul>','')
                         if index == 0:
                             self.entity.bullet1 = value
                         elif index == 1:
