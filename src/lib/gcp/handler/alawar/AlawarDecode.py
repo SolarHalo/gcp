@@ -80,12 +80,40 @@ class AlawarDecode(ContentHandler):
                     self.logger.error(e);
             elif 'SystemRequirements' == self.Code:
                 self.entity.systemreq =  self.buf
-            elif 'Description80' == self.Code:
+            elif 'Description45' == self.Code:
                 self.entity.shortdesc = self.buf
-            elif 'Description450' == self.Code:
+            elif 'Description80' == self.Code:
                 self.entity.meddesc = self.buf
+            elif 'Description450' == self.Code:
+                if self.buf is not None and self.buf != '':
+                    self.entity.longdesc = self.buf
             elif 'Description2000' == self.Code:
-                self.entity.longdesc = self.buf
+                if self.buf is not None and self.buf != '':
+                    self.entity.longdesc = self.buf
+            elif 'FullVersionFeatures' == self.Code:
+                values = self.buf.split("</li><li>")
+                leng = len(values)
+                index = -1;
+                if leng > 0:
+                    for value in values:
+                        index += 1
+                        value = value[index].replace('<ul><li>','').replace('</li></ul>','')
+                        if index == 0:
+                            self.entity.bullet1 = value
+                        elif index == 1:
+                            self.entity.bullet2 = value
+                        elif index == 2:
+                            self.entity.bullet3 = value
+                        elif index == 3:
+                            self.entity.bullet4 = value
+                        elif index == 4:
+                            self.entity.bullet5 = value
+            elif 'OrderUrl' == self.Code:
+                self.entity.buyurl = self.buf
+            elif 'Embed' == self.Code:  # rewrite
+                self.entity.downloadiframe = self.buf
+            elif 'SwfHeight' == self.Code:
+                self.entity.gamesize = self.buf
             elif 'SymbolCode' == self.Code:
                 self.entity.foldername = self.buf
             self.Code = None
