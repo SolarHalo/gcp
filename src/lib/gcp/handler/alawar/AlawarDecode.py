@@ -158,6 +158,7 @@ class AlawarDecode(ContentHandler):
             self.entity.gameName = self.buf
         elif 'File' == name:
             self.entity.downloadurl = self.buf
+            self.entity.downloadurl = re.subn("\d+.exe", "{pid}.exe", self.entity.downloadurl)[0]
         elif 'Item' == name:
             self.baseBuffer.append(self.entity)
             if len(self.baseBuffer) >= self.batchSize:
