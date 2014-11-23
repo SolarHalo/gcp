@@ -11,6 +11,7 @@ from conf import Config
 from lib.gcp.handler.DaoHandler import DaoHandler
 from lib.core.TaskRun import TaskRun
 import time
+import re
 
 class AlawarEntityResolver(xml.sax.handler.EntityResolver):
     def resolveEntity(self, publicId, systemId):
@@ -114,6 +115,7 @@ class AlawarDecode(ContentHandler):
                 if self.buf is None or self.buf == '':
                     return
                 self.entity.buyurl = self.buf
+                self.entity.buyurl = re.subn("&pid=\d+&", "&pid={pid}&", self.entity.buyurl)[0]
             elif 'Embed' == self.Code:  # rewrite
                 self.entity.downloadiframe = self.buf
             elif 'SwfHeight' == self.Code:
