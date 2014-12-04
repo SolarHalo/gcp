@@ -106,3 +106,18 @@ CREATE TABLE `game_catch` (
   `timestamp` timestamp ,/*-- 采集时间 --*/
   PRIMARY KEY (`id`)
 ) CHARSET=utf8;
+
+DROP TABLE  `tags` ;
+CREATE TABLE `tags` (
+  `tag_id` integer NOT NULL AUTO_INCREMENT,
+  `tag_name` varchar(100) NOT NULL DEFAULT '',
+  `tag_img` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`tag_id`)
+) CHARSET=utf8;
+
+DROP TABLE  `relations` ;
+CREATE TABLE `relations` (
+  `tag_id` integer NOT NULL ,
+  `obj_id` integer NOT NULL
+) CHARSET=utf8;
+

@@ -9,8 +9,10 @@ import MySQLdb
 import time
  
  
-class Dbutil: 
+class Dbutil:
+     
     def __init__(self):  
+        self.cursor = None
         configs = Config.getConfig()
         self.host = configs['db']['db_host']
         self.user = configs['db']['db_user']
