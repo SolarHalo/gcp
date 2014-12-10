@@ -105,7 +105,7 @@ class TagHandler:
                 rows = dbutil.selectRows("SELECT tag_id, tag_name FROM tags limit %d , %d "%(index,pageSize))
                 index = index + pageSize
                 for row in rows:    
-                    tags[row[1]] = int(row[0])
+                    tags[row[1].lower()] = int(row[0])
                 
         except Exception , e:
             TagHandler.logger.exception(e)
@@ -154,21 +154,19 @@ class TagHandler:
         for game in games:
             gameTags = self.parse(game[1])
             for gameTag in gameTags:
-                if not tagsCache.has_key(gameTag):
+                if not tagsCache.has_key(gameTag.lower()):
                     tags.append(gameTag)
         self.saveTags(tags)
         
-        
-        #game tags
+        #save relations
         tagsCache = self.getTags()
         relationsCache = self.getRelations()
-        
         relations = []
         for game in games:
             gameTags = self.parse(game[1])
             for gameTag in gameTags:
-                if tagsCache.has_key(gameTag):
-                    tagId = tagsCache.get(gameTag)
+                if tagsCache.has_key(gameTag.lower()):
+                    tagId = tagsCache.get(gameTag.lower())
                     if relationsCache.get(tagId) != game[0]:
                         relations.append([tagId,int(game[0])])
         self.saveRelations(relations)
