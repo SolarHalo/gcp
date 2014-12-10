@@ -26,11 +26,11 @@ class TagHandler:
             pageSize = 100;
             
             dbutil = Dbutil()
-            rows = dbutil.selectRows("select count(id) from game WHERE id NOT IN (SELECT DISTINCT obj_id FROM relations ) ")
+            rows = dbutil.selectRows("select count(id) from game ")
             count = rows[0][0]
             
             while(index <= count):
-                rows = dbutil.selectRows("select id,game_name from game WHERE id NOT IN (SELECT DISTINCT obj_id FROM relations ) limit %d , %d "%(index,pageSize))
+                rows = dbutil.selectRows("select id,game_name from game limit %d , %d "%(index,pageSize))
                 index = index + pageSize
                 for row in rows:    
                     games.append([row[0],row[1]])
@@ -114,6 +114,7 @@ class TagHandler:
             if dbutil is not None:
                 dbutil.close() 
         return tags
+    
     def getRelations(self):
         relations = {}
         dbutil = None
@@ -139,12 +140,11 @@ class TagHandler:
         return relations 
     
     def filter(self,tag):
-        m = re.match('^(\d+)$', '111')
+        m = re.match('^(\d+)$', tag)
         if m:
             return True
         else:
             return False;
-        
     
     def parse(self,content):
         return jieba.analyse.extract_tags(content, topK = 4,)
@@ -165,6 +165,7 @@ class TagHandler:
                 if self.filter(gameTag):
                     continue
                 if not tagsCache.has_key(gameTag.lower()):
+                    tagsCache[gameTag.lower()] = 0
                     tags.append(gameTag)
         self.saveTags(tags)
         
@@ -180,7 +181,6 @@ class TagHandler:
                     if relationsCache.get(tagId) != game[0]:
                         relations.append([tagId,int(game[0])])
         self.saveRelations(relations)
-        
             
                   
         
