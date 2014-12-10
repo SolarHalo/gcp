@@ -129,8 +129,15 @@ class TagHandler:
             while(index <= count):
                 rows = dbutil.selectRows("SELECT tag_id, obj_id FROM relations limit %d , %d "%(index,pageSize))
                 index = index + pageSize
-                for row in rows:    
-                    relations[row[0]] = int(row[1])
+                for row in rows:
+                    r = None
+                    if relations.has_key(row[0]):
+                        r = relations.get(row[0])
+                    else:
+                        r = []
+                        relations[row[0]] = r
+                    r.append(int(row[1]))
+                    
                 
         except Exception , e:
             TagHandler.logger.exception(e)
@@ -178,7 +185,8 @@ class TagHandler:
             for gameTag in gameTags:
                 if tagsCache.has_key(gameTag.lower()):
                     tagId = tagsCache.get(gameTag.lower())
-                    if relationsCache.get(tagId) != game[0]:
+                    r = relationsCache.get(tagId)
+                    if  not r.contains( game[0]):
                         relations.append([tagId,int(game[0])])
         self.saveRelations(relations)
             
