@@ -7,6 +7,7 @@ from lib.gcp.util.Dbutil import Dbutil
 from lib.gcp.util.Logger import LoggerFactory
 import jieba
 import jieba.analyse
+import re
 
 class TagHandler:
     
@@ -137,6 +138,13 @@ class TagHandler:
                 dbutil.close() 
         return relations 
     
+    def filter(self,tag):
+        m = re.match('^(\d+)$', '111')
+        if m:
+            return True
+        else:
+            return False;
+        
     
     def parse(self,content):
         return jieba.analyse.extract_tags(content, topK = 4,)
@@ -154,6 +162,8 @@ class TagHandler:
         for game in games:
             gameTags = self.parse(game[1])
             for gameTag in gameTags:
+                if self.filter(gameTag):
+                    continue
                 if not tagsCache.has_key(gameTag.lower()):
                     tags.append(gameTag)
         self.saveTags(tags)
