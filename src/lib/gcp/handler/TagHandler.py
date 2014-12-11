@@ -186,8 +186,12 @@ class TagHandler:
                 if tagsCache.has_key(gameTag.lower()):
                     tagId = tagsCache.get(gameTag.lower())
                     r = relationsCache.get(tagId)
-                    if  not r.contains( game[0]):
-                        relations.append([tagId,int(game[0])])
+                    if r is not None:
+                        if  game[0] not in r and [tagId,int(game[0])] not in relations:
+                            relations.append([tagId,int(game[0])])
+                    else:
+                        if [tagId,int(game[0])] not in relations:
+                            relations.append([tagId,int(game[0])]) 
         self.saveRelations(relations)
             
                   
