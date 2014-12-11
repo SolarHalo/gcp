@@ -147,7 +147,7 @@ class TagHandler:
         return relations 
     
     def filter(self,tag):
-        m = re.match('^(\d+)$', tag)
+        m = re.match('^([\d\.]+)(s|th|D|nd|R)?$', tag)
         if m:
             return True
         else:
