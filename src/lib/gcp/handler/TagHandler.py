@@ -11,6 +11,8 @@ import re
 
 class TagHandler:
     
+    split_str = "--------";
+    
     logger = LoggerFactory.getLogger()
     
     def __init__(self):
@@ -30,10 +32,10 @@ class TagHandler:
             count = rows[0][0]
             
             while(index <= count):
-                rows = dbutil.selectRows("select id,game_name from game limit %d , %d "%(index,pageSize))
+                rows = dbutil.selectRows("select id,game_name,language from game limit %d , %d "%(index,pageSize))
                 index = index + pageSize
                 for row in rows:    
-                    games.append([row[0],row[1]])
+                    games.append([row[0],row[1],row[2]])
                 
         except Exception , e:
             TagHandler.logger.exception(e)
@@ -44,7 +46,7 @@ class TagHandler:
     
     def saveTags(self,tags):
         dbutil = None
-        sql = " insert into tags(tag_name) values(%s) "
+        sql = " insert into tags(tag_name,language) values(%s,%s) "
         pageSize = 4000;
         
         tags = set(tags)
@@ -54,7 +56,9 @@ class TagHandler:
             
             buf = []
             for tag in tags:
-                buf.append((tag))
+                vs = tag.split(self.split_str);
+
+                buf.append((vs[0],vs[1]))
                 if len(buf) > pageSize:
                     dbutil.insertPrepared(sql, buf)
                     TagHandler.logger.info("Insert tags %d"%pageSize)
@@ -103,10 +107,10 @@ class TagHandler:
             count = rows[0][0]
             
             while(index <= count):
-                rows = dbutil.selectRows("SELECT tag_id, tag_name FROM tags limit %d , %d "%(index,pageSize))
+                rows = dbutil.selectRows("SELECT tag_id, tag_name , language FROM tags limit %d , %d "%(index,pageSize))
                 index = index + pageSize
                 for row in rows:    
-                    tags[row[1].lower()] = int(row[0])
+                    tags[row[1].lower()+self.split_str+row[2]] = int(row[0])
                 
         except Exception , e:
             TagHandler.logger.exception(e)
@@ -171,9 +175,9 @@ class TagHandler:
             for gameTag in gameTags:
                 if self.filter(gameTag):
                     continue
-                if not tagsCache.has_key(gameTag.lower()):
-                    tagsCache[gameTag.lower()] = 0
-                    tags.append(gameTag)
+                if not tagsCache.has_key(gameTag.lower()+self.split_str+game[2]):
+                    tagsCache[gameTag.lower()+self.split_str+game[2]] = 0
+                    tags.append(gameTag.lower()+self.split_str+game[2])
         self.saveTags(tags)
         
         #save relations
@@ -183,9 +187,13 @@ class TagHandler:
         for game in games:
             gameTags = self.parse(game[1])
             for gameTag in gameTags:
-                if tagsCache.has_key(gameTag.lower()):
-                    tagId = tagsCache.get(gameTag.lower())
+                if tagsCache.has_key(gameTag.lower()+self.split_str+game[2]):
+                    tagId = tagsCache.get(gameTag.lower()+self.split_str+game[2])
                     r = relationsCache.get(tagId)
+                    
+                    #if  r is None or not r.contains( game[0]):
+                    #    relations.append([tagId,int(game[0])])
+                    
                     if r is not None:
                         if  game[0] not in r and [tagId,int(game[0])] not in relations:
                             relations.append([tagId,int(game[0])])
@@ -194,8 +202,3 @@ class TagHandler:
                             relations.append([tagId,int(game[0])]) 
         self.saveRelations(relations)
             
-                  
-        
-        
-        
-        
