@@ -1,3 +1,4 @@
+#coding=utf-8
 '''
 Created on 2014-12-3
 
@@ -63,12 +64,12 @@ class GenreEnnameHandler:
                 lancfg = self.config['genrelist'][language]
                 
                 if lancfg is not None:
-                    genreType = lancfg[genreName];
+                    genreType = lancfg[genreName]
                     if genreType is not None:
-                        genreEnname = self.config['genrelist'][genreType];
+                        genreEnname = self.config['genrelist'][genreType]
                         if genreEnname is not None:
-                            sql = " update game set genre_enname = %s where id= %s" ;
-                            dbutil.updatePrepared(sql, (genreEnname,gameId));
+                            sql = " update game set genre_enname = %s where id= %s" 
+                            dbutil.updatePrepared(sql, (genreEnname,gameId))
                         else:
                             GenreEnnameHandler.self.logger.info("genreType[%s] not config  gameid[%s] , genreName[%s]"%(genreType,gameId ,genreName))
                     else:
