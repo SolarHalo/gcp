@@ -18,6 +18,7 @@ import lib.gcp.handler.alawar.UrlParserHandler
 from lib.core.TimeScheduler import TimeScheduler
 from apscheduler.threadpool import ThreadPool
 from lib.gcp.handler.TagHandler import TagHandler
+from lib.gcp.handler.GenreEnnameHandler import GenreEnnameHandler
 
 if __name__ == '__main__':
  
@@ -52,6 +53,9 @@ if __name__ == '__main__':
                                                  days = 1,start_date ='2014-11-02 01:00:00')
     
     TimeScheduler.getInstance().registerInterval(TagHandler(),days = 1,start_date ='2014-11-02 02:00:00');
+    
+    TimeScheduler.getInstance().registerInterval(GenreEnnameHandler(),days = 1,start_date ='2014-11-02 02:00:00');
+    
     TimeScheduler.getInstance().start()
     logger.info("Start Scheduler end !");
     

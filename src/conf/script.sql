@@ -45,6 +45,7 @@ CREATE TABLE `game` (
   `timestamp` timestamp ,/*-- 采集时间 --*/
   `img_dw_feature` varchar(300) DEFAULT NULL,
   `flash_dw_feature` varchar(300) DEFAULT NULL,
+  `genre_enname` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) CHARSET=utf8;
 
