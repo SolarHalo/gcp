@@ -50,11 +50,15 @@ class GenreEnnameHandler:
         try:
             dbutil = Dbutil()
             
+            gameId = None
+            genreName = None
+            language = None
+                
             for game in games:
                 
-                gameId = game[0];
-                genreName = game[1];
-                language = game[2];
+                gameId = game[0]
+                genreName = game[1]
+                language = game[2]
                 
                 lancfg = self.config['genrelist'][language]
                 
@@ -73,6 +77,7 @@ class GenreEnnameHandler:
                     GenreEnnameHandler.self.logger.info("language[%s] config not found , gameid[%s] , genreName[%s]"%(language,gameId ,genreName))
                         
         except Exception , e:
+            GenreEnnameHandler.self.logger.info("language[%s] , genreName[%s] ,  gameId[%s] "%(language, genreName, gameId ))
             GenreEnnameHandler.logger.exception(e)
         finally:
             if dbutil is not None:
