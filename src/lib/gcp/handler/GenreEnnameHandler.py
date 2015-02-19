@@ -71,14 +71,14 @@ class GenreEnnameHandler:
                             sql = " update game set genre_enname = %s where id= %s" 
                             dbutil.updatePrepared(sql, (genreEnname,gameId))
                         else:
-                            GenreEnnameHandler.self.logger.info("genreType[%s] not config  gameid[%s] , genreName[%s]"%(genreType,gameId ,genreName))
+                            GenreEnnameHandler.logger.info("genreType[%s] not config  gameid[%s] , genreName[%s]"%(genreType,gameId ,genreName))
                     else:
-                        GenreEnnameHandler.self.logger.info("genreName[%s] config not found in language[%s], gameid[%s] , genreName[%s]"%(genreName,language,gameId ,genreName))
+                        GenreEnnameHandler.logger.info("genreName[%s] config not found in language[%s], gameid[%s] , genreName[%s]"%(genreName,language,gameId ,genreName))
                 else:
-                    GenreEnnameHandler.self.logger.info("language[%s] config not found , gameid[%s] , genreName[%s]"%(language,gameId ,genreName))
+                    GenreEnnameHandler.logger.info("language[%s] config not found , gameid[%s] , genreName[%s]"%(language,gameId ,genreName))
                         
         except Exception , e:
-            GenreEnnameHandler.self.logger.info("language[%s] , genreName[%s] ,  gameId[%s] "%(language, genreName, gameId ))
+            GenreEnnameHandler.logger.info("language[%s] , genreName[%s] ,  gameId[%s] "%(language, genreName, gameId ))
             GenreEnnameHandler.logger.exception(e)
         finally:
             if dbutil is not None:
