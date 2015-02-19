@@ -71,9 +71,9 @@ class GenreEnnameHandler:
                                 sql = " update game set genre_enname = %s where id= %s" 
                                 dbutil.updatePrepared(sql, (genreEnname,gameId))
                             else:
-                                GenreEnnameHandler.logger.info("genreType[%s] not config  gameid[%s] , genreName[%s]"%(genreType,gameId ,genreName))
+                                GenreEnnameHandler.logger.info("genreType[%s] not config  gameid[%s] , genreName[%s] , lancfg [%s]"%(genreType,gameId ,genreName,lancfg))
                         else:
-                            GenreEnnameHandler.logger.info("genreName[%s] config not found in language[%s], gameid[%s] , genreName[%s]"%(genreName,language,gameId ,genreName))
+                            GenreEnnameHandler.logger.info("genreName[%s] config not found in language[%s], gameid[%s] , lancfg[%s]"%(genreName,language,gameId,lancfg))
                     else:
                         GenreEnnameHandler.logger.info("language[%s] config not found , gameid[%s] , genreName[%s]"%(language,gameId ,genreName))
                 except Exception , e1:
