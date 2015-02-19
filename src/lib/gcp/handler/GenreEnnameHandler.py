@@ -58,7 +58,7 @@ class GenreEnnameHandler:
             for game in games:
                 
                 gameId = game[0]
-                genreName = game[1]
+                genreName = game[1].lower()
                 language = game[2]
                 
                 lancfg = self.config['genrelist'][language]
