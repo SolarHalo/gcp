@@ -56,27 +56,28 @@ class GenreEnnameHandler:
             language = None
                 
             for game in games:
-                
-                gameId = game[0]
-                genreName = game[1].lower()
-                language = game[2]
-                
-                lancfg = self.config['genrelist'][language]
-                
-                if lancfg is not None:
-                    genreType = lancfg[genreName]
-                    if genreType is not None:
-                        genreEnname = self.config['genrelist'][genreType]
-                        if genreEnname is not None:
-                            sql = " update game set genre_enname = %s where id= %s" 
-                            dbutil.updatePrepared(sql, (genreEnname,gameId))
+                try:
+                    gameId = game[0]
+                    genreName = game[1].lower()
+                    language = game[2]
+                    
+                    lancfg = self.config['genrelist'].get(language,None)
+                    
+                    if lancfg is not None:
+                        genreType = lancfg.get(genreName,None)
+                        if genreType is not None:
+                            genreEnname = self.config['genrelist'].get(genreType,None)
+                            if genreEnname is not None:
+                                sql = " update game set genre_enname = %s where id= %s" 
+                                dbutil.updatePrepared(sql, (genreEnname,gameId))
+                            else:
+                                GenreEnnameHandler.logger.info("genreType[%s] not config  gameid[%s] , genreName[%s]"%(genreType,gameId ,genreName))
                         else:
-                            GenreEnnameHandler.logger.info("genreType[%s] not config  gameid[%s] , genreName[%s]"%(genreType,gameId ,genreName))
+                            GenreEnnameHandler.logger.info("genreName[%s] config not found in language[%s], gameid[%s] , genreName[%s]"%(genreName,language,gameId ,genreName))
                     else:
-                        GenreEnnameHandler.logger.info("genreName[%s] config not found in language[%s], gameid[%s] , genreName[%s]"%(genreName,language,gameId ,genreName))
-                else:
-                    GenreEnnameHandler.logger.info("language[%s] config not found , gameid[%s] , genreName[%s]"%(language,gameId ,genreName))
-                        
+                        GenreEnnameHandler.logger.info("language[%s] config not found , gameid[%s] , genreName[%s]"%(language,gameId ,genreName))
+                except Exception , e1:
+                    GenreEnnameHandler.logger.exception(e1)
         except Exception , e:
             GenreEnnameHandler.logger.info("language[%s] , genreName[%s] ,  gameId[%s] "%(language, genreName, gameId ))
             GenreEnnameHandler.logger.exception(e)
