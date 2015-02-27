@@ -324,11 +324,11 @@ configs = {
             'strategispel':29
         },
         'pt':{
-            'Objetos escondidos':15,
-            'Mahjong':3,
-            'Combine 3':17,
-            'Gerenciamento de tempo':25,
-            'Fliperama e Ação':1,
+            'objetos escondidos':15,
+            'mahjong':3,
+            'combine 3':17,
+            'gerenciamento de tempo':25,
+            'fliperama e ação':1,
             'aventura':21,
             'jigsaw':100,
             'cartas e tabuleiro':5,
