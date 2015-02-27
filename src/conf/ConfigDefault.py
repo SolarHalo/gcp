@@ -320,7 +320,7 @@ configs = {
             '3-i-rad-spel' :17,
             'mahjong-spel': 3,
             'tidsplaneringsspel':25,
-            'äventyrsspel': 21,
+            'Äventyrsspel': 21,
             'strategispel':29
         },
         'pt':{
