@@ -249,7 +249,7 @@ configs = {
             '' : 'LangVersion',
             'Europe/Amsterdam' : 'LangTZ',
             
-            'Knikker':18
+            'knikker':18
         },
         'se':{
             'puzzle' : 4,
