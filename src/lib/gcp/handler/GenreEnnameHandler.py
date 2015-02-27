@@ -57,9 +57,11 @@ class GenreEnnameHandler:
                 
             for game in games:
                 try:
+                    if game[1] is None:
+                        continue
                     gameId = game[0]
-                    genreName = game[1].lower()
-                    language = game[2]
+                    genreName = str(game[1]).lower()
+                    language = str(game[2])
                     
                     lancfg = self.config['genrelist'].get(language,None)
                     
