@@ -37,6 +37,10 @@ configs = {
         'video' : 97,
         'driving' : 98,
         'other' : 99,
+        'jigsaw':100,
+        'casino':101,
+        'holiday':102,
+        'sports':103,
         
         4 : 'puzzle',
         15 : 'hidden object',
@@ -55,6 +59,11 @@ configs = {
         97 : 'video',
         98 : 'driving',
         99 : 'other',
+        100:'jigsaw',
+        101:'casino',
+        102:'holiday',
+        103:'sports',
+        
         'en':{
             'puzzle' : 4,
             'hidden object' : 15,
@@ -77,10 +86,13 @@ configs = {
             'new' : 'new',
             'top' : 'top',
             '1' : 'LangSeq',
-            'English' : 'LangName',
+            'english' : 'LangName',
             'English' : 'LangSelfName',
-            'English Version' : 'LangVersion',
-            'America/Los_Angeles': 'LangTZ' 
+            'english version' : 'LangVersion',
+            'america/los_angeles': 'LangTZ',
+            'jigsaw':100,
+            'casino':101,
+            'holiday':102
         },
         'de':{
             'puzzle' : 4,
@@ -105,7 +117,10 @@ configs = {
             'German' : 'LangName',
             'Deutsch' : 'LangSelfName',
             'Deutsch Version' : 'LangVersion',
-            'Europe/Berlin' : 'LangTZ'
+            'Europe/Berlin' : 'LangTZ',
+            
+            'jigsaw':100,
+            'worträtsel':6
         },
         'fr':{
             'puzzle' : 4,
@@ -130,7 +145,11 @@ configs = {
             'French' : 'LangName',
             'Français' : 'LangSelfName',
             'Version Français' : 'LangVersion',
-            'Europe/Paris' : 'LangTZ'
+            'Europe/Paris' : 'LangTZ',
+            
+            'objets cachés': 15,
+            'stratégie': 29,
+            'casse-tête': 4
         },
         'es':{
             'puzzle' : 4,
@@ -155,7 +174,15 @@ configs = {
             'Spanish' : 'LangName',
             'Español' : 'LangSelfName',
             'Versión en Español' : 'LangVersion',
-            'Europe/Madrid' : 'LangTZ'
+            'Europe/Madrid' : 'LangTZ',
+            
+            'gestión del tiempo':25,
+            'arcade y acción':1,
+            'rompecabezas':4,
+            'niños':26,  
+            'deportes':103,
+            'destruir bolas':18,
+            'casino':101
         },
         'dk':{
             'puzzle' : 4,
@@ -194,7 +221,13 @@ configs = {
             'Italian' : 'LangName',
             'Italiano' : 'LangSelfName',
             '' : 'LangVersion',
-            'Europe/Rome' : 'LangTZ'
+            'Europe/Rome' : 'LangTZ',
+            
+            'enigmi & puzzle':4,
+            'rebus':4,
+            'scoppiabolle':18,
+            'sports':103
+
         },
         'nl':{
             'puzzle' : 4,
@@ -214,7 +247,9 @@ configs = {
             'Dutch' : 'LangName',
             'Nederlands' : 'LangSelfName',
             '' : 'LangVersion',
-            'Europe/Amsterdam' : 'LangTZ'
+            'Europe/Amsterdam' : 'LangTZ',
+            
+            'Knikker':18
         },
         'se':{
             'puzzle' : 4,
@@ -274,7 +309,41 @@ configs = {
             'Japanese' : 'LangName',
             '日本語': 'LangSelfName',
             '日本語版' : 'LangVersion',
-            'Asia/Tokyo' : 'LangTZ'
+            'Asia/Tokyo' : 'LangTZ',
+            
+            'カード & ボード':5
+        },
+        'sv':{
+            'sök och finn-spel':15,
+            'arkad- och actionspel' :1,
+            'kort- och brädspel':5,
+            '3-i-rad-spel' :17,
+            'mahjong-spel': 3,
+            'tidsplaneringsspel':25,
+            'äventyrsspel': 21,
+            'strategispel':29
+        },
+        'pt':{
+            'Objetos escondidos':15,
+            'Mahjong':3,
+            'Combine 3':17,
+            'Gerenciamento de tempo':25,
+            'Fliperama e Ação':1,
+            'aventura':21,
+            'jigsaw':100,
+            'cartas e tabuleiro':5,
+            'estratégia':29,
+            'sports':103
+        },
+        'da':{
+            'tre på stribe-spil':18,
+            'arkade- og actionspil':1,
+            'tidsstyringsspil':25,
+            'strategispil':29,
+            'mahjong-spil':3,
+            'søg og find-spil':15,
+            'eventyrspil':21,
+            'kort- og brætspil':5
         }
     }
       
