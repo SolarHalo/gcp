@@ -136,23 +136,27 @@ class BigfishDecode(ContentHandler):
             assetname = self.entity.foldername ;
             if assetname is not None:
                 assetname = assetname.replace(self.entity.language+"_", "")
-                
+            
+            langugeT = self.entity.language;
+            
+            if 'en' == langugeT:
+                langugeT = "com" 
             if self.entity.gametype == 'pc':
-                self.entity.downloadurl     = self.sitePrix +'.'+self.entity.language + "/download-games/" + self.entity.gameId + "/" + assetname +"/download.html?channel=affiliates&identifier={afcode}"
-                self.entity.downloadiframe  = self.sitePrix +'.'+self.entity.language + "/download-games/" + self.entity.gameId + "/" + assetname+"/download_pnp.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadurl     = self.sitePrix +'.'+langugeT + "/download-games/" + self.entity.gameId + "/" + assetname +"/download.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadiframe  = self.sitePrix +'.'+langugeT + "/download-games/" + self.entity.gameId + "/" + assetname+"/download_pnp.html?channel=affiliates&identifier={afcode}"
                 
-                self.entity.buyurl      = self.sitePrix +'.'+self.entity.language+"/download-games/"+ self.entity.gameId+"/"+assetname+"/buy.html?channel=affiliates&identifier={afcode}"
-                self.entity.buyiframe   = self.sitePrix +'.'+self.entity.language+"/download-games/"+ self.entity.gameId+"/"+assetname+"/buy_pnp.html?channel=affiliates&identifier={afcode}"
+                self.entity.buyurl      = self.sitePrix +'.'+langugeT+"/download-games/"+ self.entity.gameId+"/"+assetname+"/buy.html?channel=affiliates&identifier={afcode}"
+                self.entity.buyiframe   = self.sitePrix +'.'+langugeT+"/download-games/"+ self.entity.gameId+"/"+assetname+"/buy_pnp.html?channel=affiliates&identifier={afcode}"
                 
             elif self.entity.gametype == 'mac':
-                self.entity.downloadurl     = self.sitePrix +'.'+self.entity.language+"/download-games/mac/"+self.entity.gameId+"/"+assetname+ "/download.html?channel=affiliates&identifier={afcode}"
-                self.entity.downloadiframe  = self.sitePrix +'.'+self.entity.language+"/download-games/mac/"+self.entity.gameId+"/"+assetname+ "/download_pnp.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadurl     = self.sitePrix +'.'+langugeT+"/download-games/mac/"+self.entity.gameId+"/"+assetname+ "/download.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadiframe  = self.sitePrix +'.'+langugeT+"/download-games/mac/"+self.entity.gameId+"/"+assetname+ "/download_pnp.html?channel=affiliates&identifier={afcode}"
                 
-                self.entity.buyurl      = self.sitePrix +'.'+self.entity.language+"/download-games/mac/"+ self.entity.gameId+"/"+assetname+"/buy.html?channel=affiliates&identifier={afcode}"
-                self.entity.buyiframe   = self.sitePrix +'.'+self.entity.language+"/download-games/mac/"+ self.entity.gameId+"/"+assetname+"/buy_pnp.html?channel=affiliates&identifier={afcode}"
+                self.entity.buyurl      = self.sitePrix +'.'+langugeT+"/download-games/mac/"+ self.entity.gameId+"/"+assetname+"/buy.html?channel=affiliates&identifier={afcode}"
+                self.entity.buyiframe   = self.sitePrix +'.'+langugeT+"/download-games/mac/"+ self.entity.gameId+"/"+assetname+"/buy_pnp.html?channel=affiliates&identifier={afcode}"
             else:
-                self.entity.downloadurl     = self.sitePrix +'.'+self.entity.language+"/online-games/"+self.entity.gameId+"/"+ assetname+"/index.html?channel=affiliates&identifier={afcode}"
-                self.entity.downloadiframe  = self.sitePrix +'.'+self.entity.language+"/online-games/"+self.entity.gameId+"/"+ assetname+"/index_pnp.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadurl     = self.sitePrix +'.'+langugeT+"/online-games/"+self.entity.gameId+"/"+ assetname+"/index.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadiframe  = self.sitePrix +'.'+langugeT+"/online-games/"+self.entity.gameId+"/"+ assetname+"/index_pnp.html?channel=affiliates&identifier={afcode}"
             #movie
             if self.entity.video == 'yes':
                 self.entity.video = self.assets +"/"+ self.entity.foldername+"/"+assetname+".flv"
