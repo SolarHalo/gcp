@@ -155,8 +155,8 @@ class BigfishDecode(ContentHandler):
                 self.entity.buyurl      = self.sitePrix +'.'+langugeT+"/download-games/mac/"+ self.entity.gameId+"/"+assetname+"/buy.html?channel=affiliates&identifier={afcode}"
                 self.entity.buyiframe   = self.sitePrix +'.'+langugeT+"/download-games/mac/"+ self.entity.gameId+"/"+assetname+"/buy_pnp.html?channel=affiliates&identifier={afcode}"
             else:
-                self.entity.downloadurl     = self.sitePrix +'.'+langugeT+"/online-games/"+self.entity.gameId+"/"+ assetname+"/index.html?channel=affiliates&identifier={afcode}"
-                self.entity.downloadiframe  = self.sitePrix +'.'+langugeT+"/online-games/"+self.entity.gameId+"/"+ assetname+"/index_pnp.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadurl     = self.sitePrix +'.'+langugeT+"/online-games/"+self.entity.gameId+"/"+ assetname+"/online.html?channel=affiliates&identifier={afcode}"
+                self.entity.downloadiframe  = self.sitePrix +'.'+langugeT+"/online-games/"+self.entity.gameId+"/"+ assetname+"/online.html?channel=affiliates&identifier={afcode}"
             #movie
             if self.entity.video == 'yes':
                 self.entity.video = self.assets +"/"+ self.entity.foldername+"/"+assetname+".flv"
